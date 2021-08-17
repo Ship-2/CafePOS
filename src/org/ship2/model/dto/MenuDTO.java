@@ -19,7 +19,6 @@ public class MenuDTO implements Serializable{
 	}
 
 	public MenuDTO(int menuCode, String menuName, int unitPrice, int categoryCode, int sizeCode) {
-		super();
 		this.menuCode = menuCode;
 		this.menuName = menuName;
 		this.unitPrice = unitPrice;
