@@ -9,32 +9,34 @@ public class SizeDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = -1100587984819679617L;
 	
-	private int categoryCode;
-	private String categoryName;
+	private int sizeCode;
+	private String sizeName;
 	
-	public SizeDTO() { }
-	public SizeDTO(int categoryCode, String categoryName) {
-		this.categoryCode = categoryCode;
-		this.categoryName = categoryName;
+	public SizeDTO() {
 	}
-	public int getCategoryCode() {
-		return categoryCode;
+	public SizeDTO(int sizeCode, String sizeName) {
+		this.sizeCode = sizeCode;
+		this.sizeName = sizeName;
 	}
-	public void setCategoryCode(int categoryCode) {
-		this.categoryCode = categoryCode;
+	
+	public int getSizeCode() {
+		return sizeCode;
 	}
-	public String getCategoryName() {
-		return categoryName;
+	public void setSizeCode(int sizeCode) {
+		this.sizeCode = sizeCode;
 	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public String getSizeName() {
+		return sizeName;
+	}
+	public void setSizeName(String sizeName) {
+		this.sizeName = sizeName;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "SizeDTO [categoryCode=" + categoryCode + ", categoryName=" + categoryName + "]";
+		return "SizeDTO [sizeCode=" + sizeCode + ", sizeName=" + sizeName + "]";
 	}
 }
