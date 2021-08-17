@@ -9,28 +9,28 @@ public class PaymentDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = -504893537878465373L;
 
-	private int pay_code;
-	private String pay_method;
+	private int payCode;
+	private String payMethod;
+	public PaymentDTO(int payCode, String payMethod) {
+		this.payCode = payCode;
+		this.payMethod = payMethod;
+	}
 	public PaymentDTO() {
 	}
-	public PaymentDTO(int pay_code, String pay_method) {
-		this.pay_code = pay_code;
-		this.pay_method = pay_method;
+	public int getPayCode() {
+		return payCode;
 	}
-	public int getPay_code() {
-		return pay_code;
+	public void setPayCode(int payCode) {
+		this.payCode = payCode;
 	}
-	public void setPay_code(int pay_code) {
-		this.pay_code = pay_code;
+	public String getPayMethod() {
+		return payMethod;
 	}
-	public String getPay_method() {
-		return pay_method;
-	}
-	public void setPay_method(String pay_method) {
-		this.pay_method = pay_method;
+	public void setPayMethod(String payMethod) {
+		this.payMethod = payMethod;
 	}
 	@Override
 	public String toString() {
-		return "PaymentDTO [pay_code=" + pay_code + ", pay_method=" + pay_method + "]";
+		return "PaymentDTO [payCode=" + payCode + ", payMethod=" + payMethod + "]";
 	}
 }

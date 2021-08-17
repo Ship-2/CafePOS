@@ -9,29 +9,29 @@ public class CategoryDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 5441486290977264087L;
 	
-	private int cat_code;
-	private String cat_name;
-	public CategoryDTO(int cat_code, String cat_name) {
-		this.cat_code = cat_code;
-		this.cat_name = cat_name;
+	private int categoryCode;
+	private String categoryName;
+	public CategoryDTO(int categoryCode, String categoryName) {
+		this.categoryCode = categoryCode;
+		this.categoryName = categoryName;
 	}
 	public CategoryDTO() {
 	}
-	public int getCat_code() {
-		return cat_code;
+	public int getCategoryCode() {
+		return categoryCode;
 	}
-	public void setCat_code(int cat_code) {
-		this.cat_code = cat_code;
+	public void setCategoryCode(int categoryCode) {
+		this.categoryCode = categoryCode;
 	}
-	public String getCat_name() {
-		return cat_name;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCat_name(String cat_name) {
-		this.cat_name = cat_name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	@Override
 	public String toString() {
-		return "CategoryDTO [cat_code=" + cat_code + ", cat_name=" + cat_name + "]";
+		return "CategoryDTO [categoryCode=" + categoryCode + ", categoryName=" + categoryName + "]";
 	}
 
 }
