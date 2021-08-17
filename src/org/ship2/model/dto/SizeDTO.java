@@ -31,9 +31,7 @@ public class SizeDTO implements Serializable{
 	public void setSizeName(String sizeName) {
 		this.sizeName = sizeName;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 
 	@Override
 	public String toString() {
