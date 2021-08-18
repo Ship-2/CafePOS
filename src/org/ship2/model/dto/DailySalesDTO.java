@@ -48,10 +48,7 @@ public class DailySalesDTO implements Serializable{
 	public void setTotalSales(int totalSales) {
 		this.totalSales = totalSales;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
+
 	@Override
 	public String toString() {
 		return "DailySalesDTO [salesDate=" + salesDate + ", sales=" + sales + ", refund=" + refund + ", totalSales="

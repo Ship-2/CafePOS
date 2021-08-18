@@ -9,16 +9,16 @@ public class MenuDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 8612335235827957320L;
 	
-	private String menuCode;
+	private int menuCode;
 	private String menuName;
-	private String unitPrice;
-	private String categoryCode;
-	private String sizeCode;
+	private int unitPrice;
+	private int categoryCode;
+	private int sizeCode;
 	
 	public MenuDTO() {
 	}
 
-	public MenuDTO(String menuCode, String menuName, String unitPrice, String categoryCode, String sizeCode) {
+	public MenuDTO(int menuCode, String menuName, int unitPrice, int categoryCode, int sizeCode) {
 		this.menuCode = menuCode;
 		this.menuName = menuName;
 		this.unitPrice = unitPrice;
@@ -26,11 +26,11 @@ public class MenuDTO implements Serializable{
 		this.sizeCode = sizeCode;
 	}
 
-	public String getMenuCode() {
+	public int getMenuCode() {
 		return menuCode;
 	}
 
-	public void setMenuCode(String menuCode) {
+	public void setMenuCode(int menuCode) {
 		this.menuCode = menuCode;
 	}
 
@@ -42,27 +42,27 @@ public class MenuDTO implements Serializable{
 		this.menuName = menuName;
 	}
 
-	public String getUnitPrice() {
+	public int getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(String unitPrice) {
+	public void setUnitPrice(int unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
-	public String getCategoryCode() {
+	public int getCategoryCode() {
 		return categoryCode;
 	}
 
-	public void setCategoryCode(String categoryCode) {
+	public void setCategoryCode(int categoryCode) {
 		this.categoryCode = categoryCode;
 	}
 
-	public String getSizeCode() {
+	public int getSizeCode() {
 		return sizeCode;
 	}
 
-	public void setSizeCode(String sizeCode) {
+	public void setSizeCode(int sizeCode) {
 		this.sizeCode = sizeCode;
 	}
 
