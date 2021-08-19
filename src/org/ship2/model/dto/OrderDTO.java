@@ -9,35 +9,58 @@ public class OrderDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 380410694057740078L;		
 		
-	private int OrderCode;
-	private String OrderDate;
+	private int orderCode;
+	private String orderDate;
+	private int payCode;
+	private int memCode;
 	
 	public OrderDTO() {
 	}
 
-	public OrderDTO(int OrderCode, String OrderDate) {
-		this.OrderCode = OrderCode;
-		this.OrderDate = OrderDate;
+	public OrderDTO(int orderCode, String orderDate, int payCode, int memCode) {
+		this.orderCode = orderCode;
+		this.orderDate = orderDate;
+		this.payCode = payCode;
+		this.memCode = memCode;
 	}
 
 	public int getOrderCode() {
-		return OrderCode;
+		return orderCode;
 	}
 
-	public void setJobCode(int OrderCode) {
-		this.OrderCode = OrderCode;
+	public void setOrderCode(int orderCode) {
+		this.orderCode = orderCode;
 	}
 
 	public String getOrderDate() {
-		return OrderDate;
+		return orderDate;
 	}
 
-	public void setOrderDate(String OrderDate) {
-		this.OrderDate = OrderDate;
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public int getPayCode() {
+		return payCode;
+	}
+
+	public void setPayCode(int payCode) {
+		this.payCode = payCode;
+	}
+
+	public int getMemCode() {
+		return memCode;
+	}
+
+	public void setMemCode(int memCode) {
+		this.memCode = memCode;
 	}
 
 	@Override
 	public String toString() {
-		return "OrderDTO [OrderCode=" + OrderCode + ", OrderDate=" + OrderDate + "]";
+		return "OrderDTO [orderCode=" + orderCode + ", orderDate=" + orderDate + ", payCode=" + payCode + ", memCode="
+				+ memCode + "]";
 	}
+	
+	
 }
