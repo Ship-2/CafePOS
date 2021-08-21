@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key ="selectAllMenu">
+		SELECT
+		       A.MENU_CODE
+     	  	 , A.MENU_NAME
+     		 , A.UNIT_PRICE
+     		 , B.CATEGORY_CODE
+     		 , B.CATEGORY_NAME
+     		 , C.SIZE_CODE
+     		 , C.SIZE_NAME     
+  		  FROM MENU A
+  		  JOIN CATEGORY B ON(A.CATEGORY_CODE = B.CATEGORY_CODE)
+  		  JOIN MENU_SIZE C ON(A.SIZE_CODE = C.SIZE_CODE)
+  		 ORDER BY 1
+	</entry>
+	<entry key="insertMenu">
+		INSERT 
+		  INTO MENU
+		(
+		MENU_CODE, MENU_NAME, UNIT_PRICE, CATEGORY_CODE, SIZE_CODE
+		) 
+		VALUES
+		(
+		SEQ_MENU_CODE.NEXTVAL, ?, ?, ?, ?
+		)
+	</entry>
+</properties>
+
+
+
+
+
+
