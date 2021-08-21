@@ -35,7 +35,6 @@ public class EmployeeDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			
 			rset = pstmt.executeQuery();
 			
 			employeeList = new ArrayList<>();
@@ -59,6 +58,30 @@ public class EmployeeDAO {
 		}
 		
 		return employeeList;
+	}
+
+	public int insertNewEmployee(Connection conn, EmployeeDTO emp) {
+		PreparedStatement pstmt = null;
+		int createResult = 0;
+		
+		String query = prop.getProperty("insertNewEmployee");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, emp.getEmpName());
+			pstmt.setString(2, emp.getEmpPhone());
+			pstmt.setInt(3, emp.getJobCode());
+			pstmt.setString(4, emp.getEmpId());
+			pstmt.setString(5, emp.getEmpPw());
+			
+			createResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return createResult;
 	}
 
 }

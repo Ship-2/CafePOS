@@ -22,4 +22,16 @@ public class EmployeeService {
 		return employeeList;
 	}
 
+	public int insertNewEmployee(EmployeeDTO empDTO) {
+		Connection conn = getConnection();
+		
+		int dmlResult = 0;
+		
+		dmlResult = employeeDAO.insertNewEmployee(conn, empDTO);
+		
+		close(conn);
+		
+		return dmlResult;
+	}
+
 }
