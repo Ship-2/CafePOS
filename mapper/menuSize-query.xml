@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectAllMenuSize">
+        SELECT
+		       A.SIZE_CODE
+		     , A.SIZE_NAME
+		     , A.SIZE_PRICE
+		  FROM MENU_SIZE A
+    </entry>
+    
+    <entry key="selectBySizeCode">
+        SELECT
+		       A.SIZE_NAME
+		     , A.SIZE_PRICE
+		  FROM MENU_SIZE A
+		  WHERE SIZE_CODE = ?
+    </entry>
+</properties>
+
+
+
+
+
+
