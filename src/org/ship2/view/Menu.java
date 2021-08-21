@@ -31,13 +31,14 @@ public class Menu extends JPanel {
 	private Scanner sc = new Scanner(System.in);
 	
 	private MainFrame mf;	// 프레임 객체 생성
-	private String colNames[] = {"메뉴명", "가격", "카테고리", "사이즈"};	// 테이블 컬럼 배열 생성
+	private String colNames[] = {"메뉴명", "가격", "카테고리"};	// 테이블 컬럼 배열 생성
 	private DefaultTableModel model = new DefaultTableModel(colNames, 0);	// 테이블 모델 객체 생성(타이틀 포함)
 	private JScrollPane scrollpane = new JScrollPane();		// 테이블 에 붙일 스크롤팬 생성
-	private Object recode[] = new Object[4];	// 메뉴 리스트 담을 배열 생성
+	private Object recode[] = new Object[3];	// 메뉴 리스트 담을 배열 생성
 	private MenuDTO menu = new MenuDTO();	// 메뉴DTO 객체 생성
 	private MenuController menuController = new MenuController();	// 메뉴 컨트롤러 객체 생성
 	private JPanel successResult;	// 팝업 패널 생성
+	private List<MenuCategoriSizeDTO> menulist;
 	
 	public Menu() {}
 	
@@ -56,8 +57,14 @@ public class Menu extends JPanel {
 		
 		JButton insertBtn = new JButton("추가");
 		insertBtn.setFont(new Font("굴림", Font.PLAIN, 20));
-		insertBtn.setBounds(60, 545, 97, 86);
+		insertBtn.setBounds(250, 400, 97, 86);
+		insertBtn.setVisible(false);
 		this.add(insertBtn);
+		
+		JButton insertBtn1 = new JButton("추가");
+		insertBtn1.setFont(new Font("굴림", Font.PLAIN, 20));
+		insertBtn1.setBounds(60, 545, 97, 86);
+		this.add(insertBtn1);
 		
 		JLabel lblNewLabel = new JLabel("메뉴정보");
 		lblNewLabel.setBackground(Color.WHITE);
@@ -94,19 +101,6 @@ public class Menu extends JPanel {
 		lblNewLabel_1_1_1.setBounds(79, 290, 127, 39);
 		this.add(lblNewLabel_1_1_1);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("사이즈");
-		lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_1.setFont(new Font("굴림", Font.PLAIN, 25));
-		lblNewLabel_1_1_1_1.setBounds(79, 370, 127, 39);
-		this.add(lblNewLabel_1_1_1_1);
-		
-		JLabel lblNewLabel_1_1_1_2_1 = new JLabel("1:레귤러 2:라지 3:원사이즈");
-		lblNewLabel_1_1_1_2_1.setToolTipText("");
-		lblNewLabel_1_1_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_2_1.setFont(new Font("굴림", Font.PLAIN, 12));
-		lblNewLabel_1_1_1_2_1.setBounds(60, 390, 162, 39);
-		this.add(lblNewLabel_1_1_1_2_1);
-		
 		JLabel lblNewLabel_1_1_1_2 = new JLabel("1:커피 2:음료 3:빵");
 		lblNewLabel_1_1_1_2.setToolTipText("");
 		lblNewLabel_1_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -117,22 +111,20 @@ public class Menu extends JPanel {
 		JTextField menuTF = new JTextField();
 		menuTF.setBounds(218, 130, 254, 42);
 		this.add(menuTF);
+		menuTF.setEditable(false);
 		menuTF.setColumns(10);
 		
 		JTextField priceTF = new JTextField();
 		priceTF.setColumns(10);
+		priceTF.setEditable(false);
 		priceTF.setBounds(218, 210, 254, 42);
 		this.add(priceTF);
 		
 		JTextField categoryTF = new JTextField();
 		categoryTF.setColumns(10);
+		categoryTF.setEditable(false);
 		categoryTF.setBounds(218, 290, 254, 42);
 		this.add(categoryTF);
-		
-		JTextField sizeTF = new JTextField();
-		sizeTF.setColumns(10);
-		sizeTF.setBounds(218, 370, 254, 42);
-		this.add(sizeTF);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
@@ -173,15 +165,25 @@ public class Menu extends JPanel {
 		successResult.add(closeBtn);
 		
 		/* select한 메뉴 리스트를 미리 선언한 배열에 담아 테이블 model에 행으로 추가 */
-		List<MenuCategoriSizeDTO> menulist = selectMenu();
+		menulist = selectMenu();
 		for (int i = 0; i < menulist.size(); i++) {
 			MenuCategoriSizeDTO menu = menulist.get(i);
 			recode[0] = menu.getMenuName();
 			recode[1] = menu.getUnitPrice();
 			recode[2] = menu.getCategoryName();
-			recode[3] = menu.getSizeName();
 			model.addRow(recode);
 		}
+		
+		insertBtn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				insertBtn.setVisible(true);
+				menuTF.setEditable(true);
+				priceTF.setEditable(true);
+				categoryTF.setEditable(true);
+			}
+		});
+		
 		
 		/* 메인화면으로 돌아갈 이벤트 */
 		mainBtn.addActionListener(new ActionListener() {
@@ -198,16 +200,20 @@ public class Menu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				successResult.setVisible(false);
 				
+				insertBtn.setVisible(false);
+				menuTF.setEditable(false);
+				priceTF.setEditable(false);
+				categoryTF.setEditable(false);
+				
 				DefaultTableModel model = (DefaultTableModel)table.getModel();
 				model.setNumRows(0);
 				
-				List<MenuCategoriSizeDTO> menulist = selectMenu();
+				menulist = selectMenu();
 				for (int i = 0; i < menulist.size(); i++) {
 					MenuCategoriSizeDTO menu = menulist.get(i);
 					recode[0] = menu.getMenuName();
 					recode[1] = menu.getUnitPrice();
 					recode[2] = menu.getCategoryName();
-					recode[3] = menu.getSizeName();
 					
 					model.addRow(recode);
 				}
@@ -224,13 +230,10 @@ public class Menu extends JPanel {
 //				String menuName = in.getMenuName();
 				String price = Integer.toString(in.getUnitPrice()); 
 //				String category = in.getCategoryName();
-//				String size = in.getSizeName();
 				
 				menuTF.setText(in.getMenuName());
 				priceTF.setText(price);
 				categoryTF.setText(in.getCategoryName());
-				sizeTF.setText(in.getSizeName());
-						
 			}
 		});
 		
@@ -241,18 +244,17 @@ public class Menu extends JPanel {
 				
 				int price = Integer.parseInt(priceTF.getText());
 				int category = Integer.parseInt(categoryTF.getText()); 
-				int size = Integer.parseInt(sizeTF.getText()); 
 				
 				menu.setMenuName(menuTF.getText());
 				menu.setUnitPrice(price);
 				menu.setCategoryCode(category);
-				menu.setSizeCode(size);
 				
 				inputMenu();
 			}
 		});
-	}
-
+		
+	} // gui 끝
+	
 	/* 메뉴 select 메소드 */
 	public List<MenuCategoriSizeDTO> selectMenu() {
 		MenuController menuController = new MenuController();
@@ -286,7 +288,6 @@ public class Menu extends JPanel {
 		menuDTO.setMenuName(menuName);
 		menuDTO.setUnitPrice(unitPrice);
 		menuDTO.setCategoryCode(category);
-		menuDTO.setSizeCode(menuSize);
 		
 		return menuDTO;
 		

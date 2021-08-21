@@ -46,8 +46,6 @@ public class MenuDAO {
 				menu.setUnitPrice(rset.getInt("UNIT_PRICE"));
 				menu.setCategoryCode(rset.getInt("CATEGORY_CODE"));
 				menu.setCategoryName(rset.getString("CATEGORY_NAME"));
-				menu.setSizeCode(rset.getInt("SIZE_CODE"));
-				menu.setSizeName(rset.getString("SIZE_NAME"));
 				
 				menuList.add(menu);
 			}
@@ -71,7 +69,6 @@ public class MenuDAO {
 			pstmt.setString(1, inputMenu.getMenuName());
 			pstmt.setInt(2, inputMenu.getUnitPrice());
 			pstmt.setInt(3, inputMenu.getCategoryCode());
-			pstmt.setInt(4, inputMenu.getSizeCode());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

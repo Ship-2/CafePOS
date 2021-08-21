@@ -7,23 +7,20 @@
      	  	 , A.MENU_NAME
      		 , A.UNIT_PRICE
      		 , B.CATEGORY_CODE
-     		 , B.CATEGORY_NAME
-     		 , C.SIZE_CODE
-     		 , C.SIZE_NAME     
+     		 , B.CATEGORY_NAME 
   		  FROM MENU A
   		  JOIN CATEGORY B ON(A.CATEGORY_CODE = B.CATEGORY_CODE)
-  		  JOIN MENU_SIZE C ON(A.SIZE_CODE = C.SIZE_CODE)
-  		 ORDER BY 1
+  		 ORDER BY 4
 	</entry>
 	<entry key="insertMenu">
 		INSERT 
 		  INTO MENU
 		(
-		MENU_CODE, MENU_NAME, UNIT_PRICE, CATEGORY_CODE, SIZE_CODE
+		MENU_CODE, MENU_NAME, UNIT_PRICE, CATEGORY_CODE
 		) 
 		VALUES
 		(
-		SEQ_MENU_CODE.NEXTVAL, ?, ?, ?, ?
+		SEQ_MENU_CODE.NEXTVAL, ?, ?, ?
 		)
 	</entry>
 </properties>
