@@ -12,7 +12,7 @@ public class EmployeeDTO implements Serializable {
 	private int empCode;
 	private String empName;
 	private String empPhone;
-	private String jobCode;
+	private int jobCode;
 	private String empId;
 	private String empPw;
 	
@@ -20,7 +20,7 @@ public class EmployeeDTO implements Serializable {
 	}
 	
 	public EmployeeDTO(int empCode, String empName, String empPhone,
-			String jobCode, String empId, String empPw) {
+			int jobCode, String empId, String empPw) {
 		this.empCode = empCode;
 		this.empName = empName;
 		this.empPhone = empPhone;
@@ -53,11 +53,11 @@ public class EmployeeDTO implements Serializable {
 		this.empPhone = empPhone;
 	}
 
-	public String getJobCode() {
+	public int getJobCode() {
 		return jobCode;
 	}
 
-	public void setJobCode(String jobCode) {
+	public void setJobCode(int jobCode) {
 		this.jobCode = jobCode;
 	}
 
