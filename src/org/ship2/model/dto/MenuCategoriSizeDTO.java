@@ -2,7 +2,7 @@ package org.ship2.model.dto;
 
 import java.io.Serializable;
 
-public class MenuCategoruSizeDTO implements Serializable{
+public class MenuCategoriSizeDTO implements Serializable{
 
 	/**
 	 * 
@@ -17,14 +17,11 @@ public class MenuCategoruSizeDTO implements Serializable{
 	private int sizeCode;
 	private String sizeName;
 	
-	
-	public MenuCategoruSizeDTO() {
+	public MenuCategoriSizeDTO() {
 	}
 
-
-	public MenuCategoruSizeDTO(int menuCode, String menuName, int unitPrice, int categoryCode, String categoryName,
+	public MenuCategoriSizeDTO(int menuCode, String menuName, int unitPrice, int categoryCode, String categoryName,
 			int sizeCode, String sizeName) {
-		super();
 		this.menuCode = menuCode;
 		this.menuName = menuName;
 		this.unitPrice = unitPrice;
@@ -33,7 +30,6 @@ public class MenuCategoruSizeDTO implements Serializable{
 		this.sizeCode = sizeCode;
 		this.sizeName = sizeName;
 	}
-
 
 	public int getMenuCode() {
 		return menuCode;

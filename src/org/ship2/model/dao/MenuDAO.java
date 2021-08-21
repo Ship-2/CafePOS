@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.ship2.model.dto.MenuCategoruSizeDTO;
+import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
 
 import static org.ship2.common.JDBCTemplate.close;
@@ -28,10 +28,10 @@ public class MenuDAO {
 		}
 	}
 	
-	public List<MenuCategoruSizeDTO> selectMenu(Connection con) {
+	public List<MenuCategoriSizeDTO> selectMenu(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
-		List<MenuCategoruSizeDTO> menuList = null;
+		List<MenuCategoriSizeDTO> menuList = null;
 		String query = prop.getProperty("selectAllMenu");
 		
 		try {
@@ -40,7 +40,7 @@ public class MenuDAO {
 			
 			menuList = new ArrayList<>();
 			while(rset.next()) {
-				MenuCategoruSizeDTO menu = new MenuCategoruSizeDTO();
+				MenuCategoriSizeDTO menu = new MenuCategoriSizeDTO();
 				menu.setMenuCode(rset.getInt("MENU_CODE"));
 				menu.setMenuName(rset.getString("MENU_NAME"));
 				menu.setUnitPrice(rset.getInt("UNIT_PRICE"));

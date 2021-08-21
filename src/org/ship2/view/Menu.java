@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import org.ship2.controller.MenuController;
-import org.ship2.model.dto.MenuCategoruSizeDTO;
+import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
 
 public class Menu extends JPanel {
@@ -173,9 +173,9 @@ public class Menu extends JPanel {
 		successResult.add(closeBtn);
 		
 		/* select한 메뉴 리스트를 미리 선언한 배열에 담아 테이블 model에 행으로 추가 */
-		List<MenuCategoruSizeDTO> menulist = selectMenu();
+		List<MenuCategoriSizeDTO> menulist = selectMenu();
 		for (int i = 0; i < menulist.size(); i++) {
-			MenuCategoruSizeDTO menu = menulist.get(i);
+			MenuCategoriSizeDTO menu = menulist.get(i);
 			recode[0] = menu.getMenuName();
 			recode[1] = menu.getUnitPrice();
 			recode[2] = menu.getCategoryName();
@@ -201,9 +201,9 @@ public class Menu extends JPanel {
 				DefaultTableModel model = (DefaultTableModel)table.getModel();
 				model.setNumRows(0);
 				
-				List<MenuCategoruSizeDTO> menulist = selectMenu();
+				List<MenuCategoriSizeDTO> menulist = selectMenu();
 				for (int i = 0; i < menulist.size(); i++) {
-					MenuCategoruSizeDTO menu = menulist.get(i);
+					MenuCategoriSizeDTO menu = menulist.get(i);
 					recode[0] = menu.getMenuName();
 					recode[1] = menu.getUnitPrice();
 					recode[2] = menu.getCategoryName();
@@ -219,7 +219,7 @@ public class Menu extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				int index = table.getSelectedRow();
 				
-				MenuCategoruSizeDTO in = menulist.get(index);
+				MenuCategoriSizeDTO in = menulist.get(index);
 				
 //				String menuName = in.getMenuName();
 				String price = Integer.toString(in.getUnitPrice()); 
@@ -254,10 +254,10 @@ public class Menu extends JPanel {
 	}
 
 	/* 메뉴 select 메소드 */
-	public List<MenuCategoruSizeDTO> selectMenu() {
+	public List<MenuCategoriSizeDTO> selectMenu() {
 		MenuController menuController = new MenuController();
 		
-		List<MenuCategoruSizeDTO> menulist = menuController.selectMenu2();
+		List<MenuCategoriSizeDTO> menulist = menuController.selectMenu2();
 		return menulist;
 	}
 	
