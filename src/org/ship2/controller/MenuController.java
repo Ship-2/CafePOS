@@ -2,7 +2,7 @@ package org.ship2.controller;
 
 import java.util.List;
 
-import org.ship2.model.dto.MenuCategoruSizeDTO;
+import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
 import org.ship2.model.service.MenuService;
 import org.ship2.view.Menu;
@@ -24,9 +24,21 @@ public class MenuController {
 		return result;
 	}
 	
-	public List<MenuCategoruSizeDTO> selectMenu2() {
-		List<MenuCategoruSizeDTO> menulist = orderService.selectMenu();
+	public List<MenuCategoriSizeDTO> selectMenu2() {
+		List<MenuCategoriSizeDTO> menulist = orderService.selectMenu();
 		return menulist;
+	}
+
+	public int updateMenu(MenuDTO menu) {
+		int result = orderService.updateMenu(menu);
+		
+		return result;
+	}
+
+	public int deleteMenu(MenuDTO menu) {
+		int result = orderService.deleteMenu(menu);
+		
+		return result;
 	}
 	
 }
