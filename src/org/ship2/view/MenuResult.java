@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.ship2.controller.MenuController;
-import org.ship2.model.dto.MenuCategoruSizeDTO;
+import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
 
 public class MenuResult {
@@ -24,9 +24,9 @@ public class MenuResult {
 		
 	}
 	
-	public void displayMenu(List<MenuCategoruSizeDTO> list) {
+	public void displayMenu(List<MenuCategoriSizeDTO> list) {
 		
-		for(MenuCategoruSizeDTO m : list) {
+		for(MenuCategoriSizeDTO m : list) {
 			System.out.println(m);
 		}
 
