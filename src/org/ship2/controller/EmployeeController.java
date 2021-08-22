@@ -41,4 +41,15 @@ public class EmployeeController {
 		
 	}
 
+	public void deleteEmployee(String employeeId) {
+		int deleteResult = employeeService.deleteEmployee(employeeId);
+		
+		if (deleteResult > 0) {
+			employeeResultView.displayDmlResult("deleteSuccess");
+		} else {
+			employeeResultView.displayDmlResult("deleteFailed");
+		}
+				
+	}
+
 }

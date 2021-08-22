@@ -1,6 +1,8 @@
 package org.ship2.model.service;
 
 import static org.ship2.common.JDBCTemplate.close;
+import static org.ship2.common.JDBCTemplate.commit;
+import static org.ship2.common.JDBCTemplate.rollback;
 import static org.ship2.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -25,13 +27,37 @@ public class EmployeeService {
 	public int insertNewEmployee(EmployeeDTO empDTO) {
 		Connection conn = getConnection();
 		
-		int dmlResult = 0;
+		int insertResult = 0;
 		
-		dmlResult = employeeDAO.insertNewEmployee(conn, empDTO);
+		insertResult = employeeDAO.insertNewEmployee(conn, empDTO);
+		
+		if (insertResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		
 		close(conn);
 		
-		return dmlResult;
+		return insertResult;
+	}
+
+	public int deleteEmployee(String employeeId) {
+		Connection conn = getConnection();
+		
+		int deleteResult = 0;
+		
+		deleteResult = employeeDAO.deleteEmployee(conn, employeeId);
+		
+		if (deleteResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return deleteResult;
 	}
 
 }

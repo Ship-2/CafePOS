@@ -34,4 +34,10 @@
 		)
 	</entry>
 	
+	<entry key="deleteEmployee">
+		DELETE
+		  FROM EMPLOYEE A
+		 WHERE A.EMP_ID = ?
+	</entry>
+	
 </properties>
