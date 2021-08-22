@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +71,54 @@ public class MenuDAO {
 			pstmt.setInt(2, inputMenu.getUnitPrice());
 			pstmt.setInt(3, inputMenu.getCategoryCode());
 			result = pstmt.executeUpdate();
+		}  catch (SQLIntegrityConstraintViolationException e) {
+			result = 7777;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
 				
+		return result;
+	}
+
+	public int updateMenu(Connection con, MenuDTO menu) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMenu");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, menu.getMenuName());
+			pstmt.setInt(2, menu.getUnitPrice());
+			pstmt.setInt(3, menu.getCategoryCode());
+			pstmt.setInt(4, menu.getMenuCode());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMenu(Connection con, MenuDTO menu) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteMenu");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, menu.getMenuCode());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

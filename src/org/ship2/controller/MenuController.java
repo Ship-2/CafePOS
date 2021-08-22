@@ -28,5 +28,17 @@ public class MenuController {
 		List<MenuCategoriSizeDTO> menulist = orderService.selectMenu();
 		return menulist;
 	}
+
+	public int updateMenu(MenuDTO menu) {
+		int result = orderService.updateMenu(menu);
+		
+		return result;
+	}
+
+	public int deleteMenu(MenuDTO menu) {
+		int result = orderService.deleteMenu(menu);
+		
+		return result;
+	}
 	
 }

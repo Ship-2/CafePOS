@@ -32,6 +32,38 @@ public class MenuService {
 		
 		int result = menuDAO.insertMenu(con, inputMenu);
 		
+		if(result > 0 && result < 100) {
+			commit(con);
+		} else if(result == 7777) {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int updateMenu(MenuDTO menu) {
+		Connection con = getConnection();
+		
+		int result = menuDAO.updateMenu(con, menu);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int deleteMenu(MenuDTO menu) {
+		Connection con = getConnection();
+		
+		int result = menuDAO.deleteMenu(con, menu);
+		
 		if(result > 0) {
 			commit(con);
 		} else {
