@@ -1,7 +1,7 @@
 package org.ship2.model.dto;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 public class DailySalesDTO implements Serializable{
 
@@ -10,24 +10,22 @@ public class DailySalesDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = -630603213846258810L;
 	
-	private java.util.Date salesDate;
+	private Date salesDate;
 	private int sales;
 	private int refund;
 	private int totalSales;
 	
-	public DailySalesDTO() {
-	}
+	public DailySalesDTO() { }
 	public DailySalesDTO(Date salesDate, int sales, int refund, int totalSales) {
 		this.salesDate = salesDate;
 		this.sales = sales;
 		this.refund = refund;
 		this.totalSales = totalSales;
 	}
-	
-	public java.util.Date getSalesDate() {
+	public Date getSalesDate() {
 		return salesDate;
 	}
-	public void setSalesDate(java.util.Date salesDate) {
+	public void setSalesDate(Date salesDate) {
 		this.salesDate = salesDate;
 	}
 	public int getSales() {
@@ -48,7 +46,7 @@ public class DailySalesDTO implements Serializable{
 	public void setTotalSales(int totalSales) {
 		this.totalSales = totalSales;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "DailySalesDTO [salesDate=" + salesDate + ", sales=" + sales + ", refund=" + refund + ", totalSales="

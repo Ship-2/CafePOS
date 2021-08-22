@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectAllEmployees">
+		SELECT
+		       A.EMP_CODE
+		     , A.EMP_NAME
+		     , A.EMP_PHONE
+		     , A.JOB_CODE
+		     , A.EMP_ID
+		     , A.EMP_PW
+		  FROM EMPLOYEE A
+	</entry>
+</properties>
