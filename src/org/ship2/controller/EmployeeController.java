@@ -15,6 +15,7 @@ public class EmployeeController {
 		List<EmployeeDTO> employeeList = employeeService.selectAllEmployees();
 		
 		if (!employeeList.isEmpty()) {
+			employeeResultView.displayDmlResult("selectSuccess");
 			employeeResultView.display(employeeList);
 		} else {
 			employeeResultView.displayDmlResult("selectFailed");

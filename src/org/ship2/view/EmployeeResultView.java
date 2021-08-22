@@ -15,6 +15,7 @@ public class EmployeeResultView {
 	public void displayDmlResult(String dmlResultCode) {
 
 		switch(dmlResultCode) {
+		case "selectSuccess": System.out.println("[Success] 직원 조회 성공."); break;
 		case "selectFailed": System.out.println("[error] 직원 조회 실패."); break;
 		case "insertSuccess": System.out.println("[Success] 직원 추가 성공."); break;
 		case "insertFailed": System.out.println("[error] 직원 추가 실패."); break;
