@@ -7,6 +7,7 @@ public class SunminApplication {
 
 	public static void main(String[] args) {
 		new MainFrame();
+		/* test */
 	}
 
 }

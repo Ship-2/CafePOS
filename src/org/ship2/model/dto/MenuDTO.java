@@ -13,17 +13,15 @@ public class MenuDTO implements Serializable{
 	private String menuName;
 	private int unitPrice;
 	private int categoryCode;
-	private int sizeCode;
 	
 	public MenuDTO() {
 	}
 
-	public MenuDTO(int menuCode, String menuName, int unitPrice, int categoryCode, int sizeCode) {
+	public MenuDTO(int menuCode, String menuName, int unitPrice, int categoryCode) {
 		this.menuCode = menuCode;
 		this.menuName = menuName;
 		this.unitPrice = unitPrice;
 		this.categoryCode = categoryCode;
-		this.sizeCode = sizeCode;
 	}
 
 	public int getMenuCode() {
@@ -58,14 +56,6 @@ public class MenuDTO implements Serializable{
 		this.categoryCode = categoryCode;
 	}
 
-	public int getSizeCode() {
-		return sizeCode;
-	}
-
-	public void setSizeCode(int sizeCode) {
-		this.sizeCode = sizeCode;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -73,6 +63,6 @@ public class MenuDTO implements Serializable{
 	@Override
 	public String toString() {
 		return "MenuDTO [menuCode=" + menuCode + ", menuName=" + menuName + ", unitPrice=" + unitPrice
-				+ ", categoryCode=" + categoryCode + ", sizeCode=" + sizeCode + "]";
+				+ ", categoryCode=" + categoryCode + "]";
 	}
 }

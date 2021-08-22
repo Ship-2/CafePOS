@@ -2,7 +2,7 @@ package org.ship2.model.dto;
 
 import java.io.Serializable;
 
-public class MenuCategoruSizeDTO implements Serializable{
+public class MenuCategoriSizeDTO implements Serializable{
 
 	/**
 	 * 
@@ -14,26 +14,17 @@ public class MenuCategoruSizeDTO implements Serializable{
 	private int unitPrice;
 	private int categoryCode;
 	private String categoryName;
-	private int sizeCode;
-	private String sizeName;
 	
-	
-	public MenuCategoruSizeDTO() {
+	public MenuCategoriSizeDTO() {
 	}
 
-
-	public MenuCategoruSizeDTO(int menuCode, String menuName, int unitPrice, int categoryCode, String categoryName,
-			int sizeCode, String sizeName) {
-		super();
+	public MenuCategoriSizeDTO(int menuCode, String menuName, int unitPrice, int categoryCode, String categoryName) {
 		this.menuCode = menuCode;
 		this.menuName = menuName;
 		this.unitPrice = unitPrice;
 		this.categoryCode = categoryCode;
 		this.categoryName = categoryName;
-		this.sizeCode = sizeCode;
-		this.sizeName = sizeName;
 	}
-
 
 	public int getMenuCode() {
 		return menuCode;
@@ -84,27 +75,6 @@ public class MenuCategoruSizeDTO implements Serializable{
 		this.categoryName = categoryName;
 	}
 
-
-	public int getSizeCode() {
-		return sizeCode;
-	}
-
-
-	public void setSizeCode(int sizeCode) {
-		this.sizeCode = sizeCode;
-	}
-
-
-	public String getSizeName() {
-		return sizeName;
-	}
-
-
-	public void setSizeName(String sizeName) {
-		this.sizeName = sizeName;
-	}
-
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -112,6 +82,6 @@ public class MenuCategoruSizeDTO implements Serializable{
 
 	@Override
 	public String toString() {
-		return "메뉴명 = " + menuName + ", 가격 = " + unitPrice + ", 카테고리 = " + categoryName + ", 사이즈 " + sizeName;
+		return "메뉴명 = " + menuName + ", 가격 = " + unitPrice + ", 카테고리 = " + categoryName;
 	}
 }

@@ -6,12 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.ship2.model.dto.MenuCategoruSizeDTO;
+import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
 
 import static org.ship2.common.JDBCTemplate.close;
@@ -28,10 +29,10 @@ public class MenuDAO {
 		}
 	}
 	
-	public List<MenuCategoruSizeDTO> selectMenu(Connection con) {
+	public List<MenuCategoriSizeDTO> selectMenu(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
-		List<MenuCategoruSizeDTO> menuList = null;
+		List<MenuCategoriSizeDTO> menuList = null;
 		String query = prop.getProperty("selectAllMenu");
 		
 		try {
@@ -40,14 +41,12 @@ public class MenuDAO {
 			
 			menuList = new ArrayList<>();
 			while(rset.next()) {
-				MenuCategoruSizeDTO menu = new MenuCategoruSizeDTO();
+				MenuCategoriSizeDTO menu = new MenuCategoriSizeDTO();
 				menu.setMenuCode(rset.getInt("MENU_CODE"));
 				menu.setMenuName(rset.getString("MENU_NAME"));
 				menu.setUnitPrice(rset.getInt("UNIT_PRICE"));
 				menu.setCategoryCode(rset.getInt("CATEGORY_CODE"));
 				menu.setCategoryName(rset.getString("CATEGORY_NAME"));
-				menu.setSizeCode(rset.getInt("SIZE_CODE"));
-				menu.setSizeName(rset.getString("SIZE_NAME"));
 				
 				menuList.add(menu);
 			}
@@ -71,14 +70,55 @@ public class MenuDAO {
 			pstmt.setString(1, inputMenu.getMenuName());
 			pstmt.setInt(2, inputMenu.getUnitPrice());
 			pstmt.setInt(3, inputMenu.getCategoryCode());
-			pstmt.setInt(4, inputMenu.getSizeCode());
 			result = pstmt.executeUpdate();
+		}  catch (SQLIntegrityConstraintViolationException e) {
+			result = 7777;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
 				
+		return result;
+	}
+
+	public int updateMenu(Connection con, MenuDTO menu) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMenu");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, menu.getMenuName());
+			pstmt.setInt(2, menu.getUnitPrice());
+			pstmt.setInt(3, menu.getCategoryCode());
+			pstmt.setInt(4, menu.getMenuCode());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMenu(Connection con, MenuDTO menu) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteMenu");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, menu.getMenuCode());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 
