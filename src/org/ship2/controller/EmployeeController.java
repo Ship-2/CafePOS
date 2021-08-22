@@ -1,6 +1,7 @@
 package org.ship2.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.ship2.model.dto.EmployeeDTO;
 import org.ship2.model.service.EmployeeService;
@@ -19,6 +20,36 @@ public class EmployeeController {
 			employeeResultView.displayDmlResult("selectFailed");
 		}
 		
+	}
+
+	public void registNewEmployee(Map<String, String> empInfoMap) {
+		EmployeeDTO empDTO = new EmployeeDTO();
+		
+		empDTO.setEmpName(empInfoMap.get("name"));
+		empDTO.setEmpPhone(empInfoMap.get("phone"));
+		empDTO.setJobCode(Integer.valueOf(empInfoMap.get("jobCode")));
+		empDTO.setEmpId(empInfoMap.get("id"));
+		empDTO.setEmpPw(empInfoMap.get("pw"));
+		
+		int createResult = employeeService.insertNewEmployee(empDTO);
+			
+		if (createResult > 0) {
+			employeeResultView.displayDmlResult("insertSuccess");
+		} else {
+			employeeResultView.displayDmlResult("insertFailed");
+		}
+		
+	}
+
+	public void deleteEmployee(String employeeId) {
+		int deleteResult = employeeService.deleteEmployee(employeeId);
+		
+		if (deleteResult > 0) {
+			employeeResultView.displayDmlResult("deleteSuccess");
+		} else {
+			employeeResultView.displayDmlResult("deleteFailed");
+		}
+				
 	}
 
 }

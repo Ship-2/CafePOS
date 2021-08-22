@@ -11,14 +11,14 @@ public class MenuSizeDTO implements Serializable{
 	
 	private int sizeCode;
 	private String sizeName;
+	private int sizePrice;
 	
-	public MenuSizeDTO() {
-	}
-	public MenuSizeDTO(int sizeCode, String sizeName) {
+	public MenuSizeDTO() { }
+	public MenuSizeDTO(int sizeCode, String sizeName, int sizePrice) {
 		this.sizeCode = sizeCode;
 		this.sizeName = sizeName;
+		this.sizePrice = sizePrice;
 	}
-	
 	public int getSizeCode() {
 		return sizeCode;
 	}
@@ -31,10 +31,15 @@ public class MenuSizeDTO implements Serializable{
 	public void setSizeName(String sizeName) {
 		this.sizeName = sizeName;
 	}
-
-
+	public int getSizePrice() {
+		return sizePrice;
+	}
+	public void setSizePrice(int sizePrice) {
+		this.sizePrice = sizePrice;
+	}
+	
 	@Override
 	public String toString() {
-		return "MenuSizeDTO [sizeCode=" + sizeCode + ", sizeName=" + sizeName + "]";
+		return "MenuSizeDTO [sizeCode=" + sizeCode + ", sizeName=" + sizeName + ", sizePrice=" + sizePrice + "]";
 	}
 }
