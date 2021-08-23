@@ -48,7 +48,7 @@ public class MembershipDAO {
 				membership.setMemName(rset.getString("MEM_NAME"));
 				membership.setMemPhone(rset.getString("MEM_PHONE"));
 				membership.setMemPoint(rset.getInt("MEM_POINT"));
-				membership.setMemYn(rset.getBoolean("MEM_YN"));
+				membership.setMemYn(rset.getString("MEM_YN"));
 				
 				memberList.add(membership);
 				
@@ -72,9 +72,8 @@ public class MembershipDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, mem.getMemCode());
-			pstmt.setString(2, mem.getMemName());
-			pstmt.setString(3, mem.getMemPhone());
+			pstmt.setString(1, mem.getMemName());
+			pstmt.setString(2, mem.getMemPhone());
 			createResult = pstmt.executeUpdate();
 			
 		}catch (SQLException e) {
