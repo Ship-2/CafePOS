@@ -60,4 +60,22 @@ public class EmployeeService {
 		return deleteResult;
 	}
 
+	public int updateEmployeeInfo(String empIdFromUser, EmployeeDTO empDTO) {
+		Connection conn = getConnection();
+		
+		int updateResult = 0;
+		
+		updateResult = employeeDAO.updateEmployeeInfo(conn, empIdFromUser, empDTO);
+		
+		if (updateResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updateResult;
+	}
+
 }
