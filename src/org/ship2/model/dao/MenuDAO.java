@@ -71,7 +71,7 @@ public class MenuDAO {
 			pstmt.setInt(2, inputMenu.getUnitPrice());
 			pstmt.setInt(3, inputMenu.getCategoryCode());
 			result = pstmt.executeUpdate();
-		}  catch (SQLIntegrityConstraintViolationException e) {
+		} catch (SQLIntegrityConstraintViolationException e) {
 			result = 7777;
 		} catch (SQLException e) {
 			e.printStackTrace();

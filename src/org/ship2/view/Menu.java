@@ -6,14 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Vector;
 
-import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +17,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.NumberFormatter;
 
 import org.ship2.controller.MenuController;
 import org.ship2.model.dto.MenuCategoriSizeDTO;
@@ -35,18 +29,27 @@ public class Menu extends JPanel {
 	private MainFrame mf;	// 프레임 객체 생성
 	private String colNames[] = {"메뉴명", "가격", "카테고리"};	// 테이블 컬럼 배열 생성
 	private DefaultTableModel model = new DefaultTableModel(colNames, 0);	// 테이블 모델 객체 생성(타이틀 포함)
-	private JScrollPane scrollpane = new JScrollPane();		// 테이블 에 붙일 스크롤팬 생성
+	private JScrollPane scrollpane = new JScrollPane();		// 테이블을 붙일 스크롤팬 생성
 	private Object recode[] = new Object[3];	// 메뉴 리스트 담을 배열 생성
 	private MenuDTO menu = new MenuDTO();	// 메뉴DTO 객체 생성
 	private MenuController menuController = new MenuController();	// 메뉴 컨트롤러 객체 생성
 	private JPanel successResult;	// 팝업 패널 생성
-	private JPanel successResult2;
-	private JPanel deleteCheck;
-	private List<MenuCategoriSizeDTO> menulist;
-	private int index = 5000;
-	private JPanel sameNameError;
+	private JPanel successResult2;	// 팝업 패널
+	private JPanel deleteCheck;		// 팝업 패널
+	private JPanel sameNameError;	// 팝업 패널
+	private List<MenuCategoriSizeDTO> menulist; // 메뉴 리스트 객체
+	private int index = 5000;	// 테이블 행 값 초기화(예외상황 대비)
+	private JTextField menuTF;		// 메뉴 텍스트 필드
+	private JTextField categoryTF;	// 메뉴 텍스트 필드
+	private JTextField priceTF;		// 가격 텍스트 필드
+	private JButton updateBtn;		// 수정 버튼
+	private JButton insertBtn;		// 추가 버튼
+	private JLabel sameNameErrorTF;
+	private JLabel tochTable;
+	private JLabel notInsert; 
+	private JLabel notcategory; 
 	
-	public Menu() {}
+	public Menu() {} 
 	
 	public Menu(MainFrame mainFrame) {
 		/* 메뉴 패널 생성 */
@@ -61,11 +64,31 @@ public class Menu extends JPanel {
 		successResult.setVisible(false);
 		this.add(successResult);
 		
+		JLabel successTF = new JLabel();
+		successTF.setFont(new Font("굴림", Font.PLAIN, 16));
+		successTF.setText("메뉴 추가(수정) 성공");
+		successTF.setBounds(95, 41, 175, 44);
+		successResult.add(successTF);
+		
+		JButton closeBtn = new JButton("확인");
+		closeBtn.setBounds(134, 137, 97, 34);
+		successResult.add(closeBtn);
+		
 		successResult2 = new JPanel();
 		successResult2.setBackground(Color.LIGHT_GRAY);
 		successResult2.setBounds(377, 182, 361, 212);
 		successResult2.setVisible(false);
 		this.add(successResult2);
+		
+		JLabel successTF2 = new JLabel();
+		successTF2.setFont(new Font("굴림", Font.PLAIN, 16));
+		successTF2.setText("메뉴 삭제 성공");
+		successTF2.setBounds(95, 41, 175, 44);
+		successResult2.add(successTF2);
+		
+		JButton closeBtn2 = new JButton("확인");
+		closeBtn2.setBounds(134, 137, 97, 34);
+		successResult2.add(closeBtn2);
 		
 		sameNameError = new JPanel();
 		sameNameError.setBackground(Color.LIGHT_GRAY);
@@ -73,20 +96,56 @@ public class Menu extends JPanel {
 		sameNameError.setVisible(false);
 		this.add(sameNameError);
 		
-		JTextField sameNameErrorTF = new JTextField();
-		sameNameErrorTF.setFont(new Font("굴림", Font.PLAIN, 16));
-		sameNameErrorTF.setText("이미 있는 메뉴입니다.");
-		sameNameErrorTF.setBounds(95, 41, 175, 44);
-		sameNameError.add(sameNameErrorTF);
-		sameNameErrorTF.setColumns(15);
-		
 		deleteCheck = new JPanel();
 		deleteCheck.setBackground(Color.LIGHT_GRAY);
 		deleteCheck.setBounds(377, 182, 361, 212);
 		deleteCheck.setVisible(false);
 		this.add(deleteCheck);
 		
-		JButton insertBtn = new JButton("추가");
+		JLabel deleteCheckTF = new JLabel();
+		deleteCheckTF.setFont(new Font("굴림", Font.PLAIN, 16));
+		deleteCheckTF.setText("정말 삭제 하시겠습니까?");
+		deleteCheckTF.setBounds(95, 41, 175, 44);
+		deleteCheck.add(deleteCheckTF);
+		
+		JButton deleteBtn1 = new JButton("확인");
+		deleteBtn1.setBounds(134, 137, 97, 34);
+		deleteCheck.add(deleteBtn1);
+		
+		sameNameErrorTF = new JLabel();
+		sameNameErrorTF.setFont(new Font("굴림", Font.PLAIN, 16));
+		sameNameErrorTF.setText("이미 있는 메뉴입니다.");
+		sameNameErrorTF.setBounds(95, 41, 175, 44);
+		sameNameErrorTF.setVisible(false);
+		sameNameError.add(sameNameErrorTF);
+		
+		tochTable = new JLabel();
+		tochTable.setFont(new Font("굴림", Font.PLAIN, 16));
+		tochTable.setText("메뉴를 먼저 선택해주세요");
+		tochTable.setBounds(95, 41, 175, 44);
+		tochTable.setVisible(false);
+		sameNameError.add(tochTable);
+		
+		notInsert = new JLabel();
+		notInsert.setFont(new Font("굴림", Font.PLAIN, 16));
+		notInsert.setText("값을 다 입력해 주세요");
+		notInsert.setBounds(95, 41, 175, 44);
+		notInsert.setVisible(false);
+		sameNameError.add(notInsert);
+		
+		notcategory = new JLabel();
+		notcategory.setFont(new Font("굴림", Font.PLAIN, 16));
+		notcategory.setText("없는 카테고리 입니다.");
+		notcategory.setBounds(95, 41, 175, 44);
+		notcategory.setVisible(false);
+		sameNameError.add(notcategory);
+		
+		JButton cancelBtn = new JButton("취소");
+		cancelBtn.setBounds(134, 200, 97, 34);
+		deleteCheck.add(cancelBtn);
+		sameNameError.add(cancelBtn);
+		
+		insertBtn = new JButton("추가");
 		insertBtn.setFont(new Font("굴림", Font.PLAIN, 20));
 		insertBtn.setBounds(250, 400, 97, 86);
 		insertBtn.setVisible(false);
@@ -104,7 +163,7 @@ public class Menu extends JPanel {
 		lblNewLabel.setBounds(60, 50, 472, 63);
 		this.add(lblNewLabel);
 		
-		JButton updateBtn = new JButton("수정");
+		updateBtn = new JButton("수정");
 		updateBtn.setFont(new Font("굴림", Font.PLAIN, 20));
 		updateBtn.setBounds(250, 400, 97, 86);
 		updateBtn.setVisible(false);
@@ -145,19 +204,19 @@ public class Menu extends JPanel {
 		lblNewLabel_1_1_1_2.setBounds(79, 310, 127, 39);
 		this.add(lblNewLabel_1_1_1_2);
 		
-		JTextField menuTF = new JTextField();
+		menuTF = new JTextField();
 		menuTF.setBounds(218, 130, 254, 42);
 		this.add(menuTF);
 		menuTF.setEditable(false);
 		menuTF.setColumns(10);
 		
-		JTextField priceTF = new JTextField();
+		priceTF = new NumberField();
 		priceTF.setColumns(10);
 		priceTF.setEditable(false);
 		priceTF.setBounds(218, 210, 254, 42);
 		this.add(priceTF);
 		
-		JTextField categoryTF = new JTextField();
+		categoryTF = new JTextField();
 		categoryTF.setColumns(10);
 		categoryTF.setEditable(false);
 		categoryTF.setBounds(218, 290, 254, 42);
@@ -190,44 +249,6 @@ public class Menu extends JPanel {
 		panel_1.setBounds(645, 40, 472, 468);
 		this.add(panel_1);
 		
-		JTextField successTF = new JTextField();
-		successTF.setFont(new Font("굴림", Font.PLAIN, 16));
-		successTF.setText("메뉴 추가(수정) 성공");
-		successTF.setBounds(95, 41, 175, 44);
-		successResult.add(successTF);
-		successTF.setColumns(15);
-		
-		JButton closeBtn = new JButton("확인");
-		closeBtn.setBounds(134, 137, 97, 34);
-		successResult.add(closeBtn);
-		
-		JTextField successTF2 = new JTextField();
-		successTF2.setFont(new Font("굴림", Font.PLAIN, 16));
-		successTF2.setText("메뉴 삭제 성공");
-		successTF2.setBounds(95, 41, 175, 44);
-		successResult2.add(successTF2);
-		successTF2.setColumns(15);
-		
-		JButton closeBtn2 = new JButton("확인");
-		closeBtn2.setBounds(134, 137, 97, 34);
-		successResult2.add(closeBtn2);
-		
-		JTextField deleteCheckTF = new JTextField();
-		deleteCheckTF.setFont(new Font("굴림", Font.PLAIN, 16));
-		deleteCheckTF.setText("정말 삭제 하시겠습니까?");
-		deleteCheckTF.setBounds(95, 41, 175, 44);
-		deleteCheck.add(deleteCheckTF);
-		deleteCheckTF.setColumns(15);
-		
-		JButton deleteBtn1 = new JButton("확인");
-		deleteBtn1.setBounds(134, 137, 97, 34);
-		deleteCheck.add(deleteBtn1);
-		
-		JButton cancelBtn = new JButton("취소");
-		cancelBtn.setBounds(134, 200, 97, 34);
-		deleteCheck.add(cancelBtn);
-		sameNameError.add(cancelBtn);
-		
 		/* select한 메뉴 리스트를 미리 선언한 배열에 담아 테이블 model에 행으로 추가 */
 		menulist = selectMenu();
 		for (int i = 0; i < menulist.size(); i++) {
@@ -242,14 +263,9 @@ public class Menu extends JPanel {
 		insertBtn1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				menuTF.setText("");
-				priceTF.setText("");
-				categoryTF.setText("");
-				
+				notSetTF();
 				insertBtn.setVisible(true);
-				menuTF.setEditable(true);
-				priceTF.setEditable(true);
-				categoryTF.setEditable(true);
+				setTF();
 			}
 		});
 		
@@ -258,14 +274,12 @@ public class Menu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(index == 5000) {
-					 
+					sameNameError.setVisible(true);
+					tochTable.setVisible(true);
 				} else {
 					updateBtn.setVisible(true);
-					menuTF.setEditable(true);
-					priceTF.setEditable(true);
-					categoryTF.setEditable(true);
+					setTF();
 				}
-				
 			}
 		});
 		
@@ -283,12 +297,13 @@ public class Menu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				deleteCheck.setVisible(false);
 				sameNameError.setVisible(false);
-				
+				sameNameErrorTF.setVisible(false);
+				tochTable.setVisible(false);
+				notcategory.setVisible(false);
+				notInsert.setVisible(false);
 				insertBtn.setVisible(false);
 				updateBtn.setVisible(false);
-				menuTF.setEditable(false);
-				priceTF.setEditable(false);
-				categoryTF.setEditable(false);
+				notSetTF();
 			}
 		});
 		
@@ -315,6 +330,7 @@ public class Menu extends JPanel {
 					recode[2] = menu.getCategoryName();
 					
 					model.addRow(recode);
+					notSetTF();
 				}
 			}
 		});
@@ -336,10 +352,7 @@ public class Menu extends JPanel {
 					recode[2] = menu.getCategoryName();
 					
 					model.addRow(recode);
-					
-					menuTF.setText("");
-					priceTF.setText("");
-					categoryTF.setText("");
+					notSetTF();
 				}
 			}
 		});
@@ -366,14 +379,24 @@ public class Menu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				int price = Integer.parseInt(priceTF.getText());
-				int category = categoryChange(categoryTF.getText());
-				
-				menu.setMenuName(menuTF.getText());
-				menu.setUnitPrice(price);
-				menu.setCategoryCode(category);
-				
-				inputMenu();
+				if(isTFSet() == 1)  {
+					sameNameError.setVisible(true); 
+					notInsert.setVisible(true);
+
+				} else if(isTFSet() == 2) {
+					sameNameError.setVisible(true); 
+					notcategory.setVisible(true);
+				} else {
+					int price = Integer.parseInt(priceTF.getText());
+					int category = categoryChange(categoryTF.getText());
+					
+					menu.setMenuName(menuTF.getText());
+					menu.setUnitPrice(price);
+					menu.setCategoryCode(category);
+					
+					inputMenu();
+				}
+					
 			}
 		});
 		
@@ -381,28 +404,43 @@ public class Menu extends JPanel {
 		updateBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MenuCategoriSizeDTO selectmenu = menulist.get(index);
 				
-				int price = Integer.parseInt(priceTF.getText());
-				int category = categoryChange(categoryTF.getText()); 
-				
-				menu.setMenuCode(selectmenu.getMenuCode());
-				menu.setMenuName(menuTF.getText());
-				menu.setUnitPrice(price);
-				menu.setCategoryCode(category);
-				
-				updateMenu();
+				if(isTFSet() == 1)  {
+					sameNameError.setVisible(true); 
+					notInsert.setVisible(true);
+				} else if(isTFSet() == 2) {
+					sameNameError.setVisible(true); 
+					notcategory.setVisible(true);
+				} else {
+					MenuCategoriSizeDTO selectmenu = menulist.get(index);
+					
+					int price = Integer.parseInt(priceTF.getText());
+					int category = categoryChange(categoryTF.getText()); 
+					
+					menu.setMenuCode(selectmenu.getMenuCode());
+					menu.setMenuName(menuTF.getText());
+					menu.setUnitPrice(price);
+					menu.setCategoryCode(category);
+					
+					updateMenu();
+				} 
+			}
+		});
+		
+		/* 메뉴 삭제 확인 메세지 */
+		deleteBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(index == 5000) {
+					sameNameError.setVisible(true);
+					tochTable.setVisible(true);
+				} else {
+					deleteCheck.setVisible(true);
+				}
 			}
 		});
 		
 		/* 메뉴 삭제 이벤트 */
-		deleteBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				deleteCheck.setVisible(true);
-			}
-		});
-		
 		deleteBtn1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -449,10 +487,13 @@ public class Menu extends JPanel {
 
 	/* 메뉴 추가 시 팝업 창 띄우는 메소드 */
 	public void displayDmlResult(int result) {
-		System.out.println(result);
 		if(result > 0 && result < 100) {
 			successResult.setVisible(true);
 		} else if(result == 7777) {
+			sameNameErrorTF.setVisible(true);
+			sameNameError.setVisible(true);
+		} else if(result == 8888) {
+			notInsert.setVisible(true);
 			sameNameError.setVisible(true);
 		}
 	}
@@ -473,6 +514,25 @@ public class Menu extends JPanel {
 		mf.repaint();
 	}
 	
+	/* TF 값 입력 가능하게 하는 메소드 */
+	public void setTF() {
+		menuTF.setEditable(true);
+		priceTF.setEditable(true);
+		categoryTF.setEditable(true);
+	}
+	
+	/* 추가, 수정, 삭제 완료 후 TF 값 비우고, 버튼 안보이게 처리하는 메소드 */
+	public void notSetTF() {
+		menuTF.setEditable(false);
+		priceTF.setEditable(false);
+		categoryTF.setEditable(false);
+		index = 5000;
+		menuTF.setText("");
+		priceTF.setText("");
+		categoryTF.setText("");
+	}
+	
+	/* 입력 값 카테고리 코드로 변환 메소드 */ 
 	public int categoryChange(String category) {
 		int category1 = 0;
 		if (category.equals("커피")) {
@@ -485,5 +545,17 @@ public class Menu extends JPanel {
 		
 		return category1;
 	}
+	
+	/* 빈 셀로 추가, 수정 하려는 경우 에러 메소드 */
+	public int isTFSet() {
+		int a = 0;
+		if(menuTF.getText().equals("") || priceTF.getText().equals("") || categoryTF.getText().equals("")) {
+			a = 1;
+		} else if(!(categoryTF.getText().equals("커피") || categoryTF.getText().equals("음료") || categoryTF.getText().equals("빵"))) {
+			a = 2;
+		}
+		return a;
+	}
 
 }
+
