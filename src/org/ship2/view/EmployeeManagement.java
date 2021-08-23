@@ -13,6 +13,8 @@ public class EmployeeManagement {
 	 * 		  It would be deleted after GUI is created.
 	 */
 	private Scanner sc = new Scanner(System.in);
+	
+	
 
 	public void EmployeeManagementTest() {
 		EmployeeController employeeController = new EmployeeController();
@@ -92,6 +94,6 @@ public class EmployeeManagement {
 		empInfoMap.put("pw", sc.nextLine());
 		
 		return empInfoMap;
-	}
+	}	
 
 }
