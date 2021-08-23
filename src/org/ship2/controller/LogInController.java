@@ -16,7 +16,4 @@ public class LogInController {
 		return employeeList;
 	}
 
-	public void getEmployeeId() {
-		
-	}
 }

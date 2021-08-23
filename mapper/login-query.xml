@@ -11,18 +11,7 @@
 		    ,   EMP_PW
 		  FROM EMPLOYEE
     </entry>
-    
-	<entry key="selectID">
-		SELECT
-		       EMP_ID
-		  FROM EMPLOYEE
-    </entry>
-    
-    <entry key="selectPW">
-		SELECT
-		       EMP_ID
-		  FROM EMPLOYEE
-    </entry>
+
 
 </properties>
 
