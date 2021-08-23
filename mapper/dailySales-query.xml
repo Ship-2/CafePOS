@@ -8,7 +8,7 @@
 		     , A.REFUND
 		     , A.TOTAL_SALES
 		  FROM DAILY_SALES A
-		 WHERE SALES_DATE BETWEEN TO_DATE(?, 'yy/MM/dd') AND TO_DATE(?, 'yy/MM/dd')
+		 WHERE TO_CHAR(SALES_DATE) BETWEEN ? AND ? 
 		 ORDER BY SALES_DATE
     </entry>
     
@@ -18,7 +18,7 @@
 		     , SUM(A.REFUND)
 		     , SUM(A.TOTAL_SALES)
 		  FROM DAILY_SALES A
-		 WHERE SALES_DATE BETWEEN TO_DATE('?', 'yy/MM/dd') AND TO_DATE('?', 'yy/MM/dd')
+		 WHERE TO_CHAR(SALES_DATE) BETWEEN ? AND ? 
     </entry>
 
 </properties>
