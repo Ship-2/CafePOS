@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import org.ship2.model.dao.MenuDAO;
-import org.ship2.model.dto.MenuCategoruSizeDTO;
+import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
 
 import static org.ship2.common.JDBCTemplate.getConnection;
@@ -16,10 +16,10 @@ public class MenuService {
 	
 	private MenuDAO menuDAO = new MenuDAO();
 	
-	public List<MenuCategoruSizeDTO> selectMenu() {
+	public List<MenuCategoriSizeDTO> selectMenu() {
 		Connection con = getConnection();
 		
-		List<MenuCategoruSizeDTO> menuList = menuDAO.selectMenu(con);
+		List<MenuCategoriSizeDTO> menuList = menuDAO.selectMenu(con);
 		
 		close(con);
 		
@@ -31,6 +31,38 @@ public class MenuService {
 		Connection con = getConnection();
 		
 		int result = menuDAO.insertMenu(con, inputMenu);
+		
+		if(result > 0 && result < 100) {
+			commit(con);
+		} else if(result == 7777) {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int updateMenu(MenuDTO menu) {
+		Connection con = getConnection();
+		
+		int result = menuDAO.updateMenu(con, menu);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int deleteMenu(MenuDTO menu) {
+		Connection con = getConnection();
+		
+		int result = menuDAO.deleteMenu(con, menu);
 		
 		if(result > 0) {
 			commit(con);
