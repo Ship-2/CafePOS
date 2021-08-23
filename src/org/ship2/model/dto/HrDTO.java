@@ -8,10 +8,10 @@ public class HrDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 2157835203959533624L;
-	private String hrDate;		// ³¯Â¥
-	private int empCode;		// Á÷¿øÄÚµå
-	private String clockIn;		// Ãâ±Ù½Ã°£
-	private String clockOut;	// Åğ±Ù½Ã°£
+	private String hrDate;		// ë‚ ì§œ
+	private int empCode;		// ì§ì›ì½”ë“œ
+	private String clockIn;		// ì¶œê·¼ì‹œê°„
+	private String clockOut;	// í‡´ê·¼ì‹œê°„
 	
 	public HrDTO() {	
 	}
