@@ -37,6 +37,8 @@ public class MainPage extends JPanel{
 		menuManageButton.setBounds(660, 20, 420, 224);
 		add(menuManageButton);
 		
+		// FROM 송언석 : 잠시 GUI 테스트 동안에 꼽사리좀 끼겠습니다.
+		/* 직원 관리 버튼 */
 		JButton employeeManageButton = new JButton("직원 관리");
 		employeeManageButton.setBounds(660, 260, 420, 224);
 		add(employeeManageButton);
@@ -64,6 +66,7 @@ public class MainPage extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				LogInPage loginPage = new LogInPage(mf);
 				changePanel(loginPage);
+				System.out.println("로그아웃 하였습니다.");
 			}
 		});
 		
@@ -84,6 +87,16 @@ public class MainPage extends JPanel{
 //				changePanel(memberPge);
 //			}
 //		});
+		
+		// FROM 송언석 : 잠시 GUI 테스트 동안에 꼽사리좀 끼겠습니다.
+		employeeManageButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EmployeeManagementScreen empManagementScreen =
+						new EmployeeManagementScreen(mf);
+				changePanel(empManagementScreen);
+			}
+		});
 		
 		mf.add(this);
 	}

@@ -6,15 +6,13 @@ import java.util.Scanner;
 
 import org.ship2.controller.EmployeeController;
 
-public class EmployeeManagement {
+public class EmployeeManagementView {
 	
 	/**
 	 * @brief This Scanner instance {@code sc} is created for unit test.
 	 * 		  It would be deleted after GUI is created.
 	 */
 	private Scanner sc = new Scanner(System.in);
-	
-	
 
 	public void EmployeeManagementTest() {
 		EmployeeController employeeController = new EmployeeController();
@@ -94,6 +92,6 @@ public class EmployeeManagement {
 		empInfoMap.put("pw", sc.nextLine());
 		
 		return empInfoMap;
-	}	
+	}
 
 }
