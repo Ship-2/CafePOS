@@ -1,13 +1,15 @@
 package org.ship2.run;
 
+import org.ship2.view.LogIn;
 import org.ship2.view.MainFrame;
-import org.ship2.view.Menu;
 
-public class SunminApplication {
+public class LogInApplication {
 
 	public static void main(String[] args) {
 		new MainFrame();
-		/* test */
+		LogIn logIn = new LogIn();
+		logIn.logInComplete();
+	
 	}
 
 }

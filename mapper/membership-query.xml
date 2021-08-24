@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!--comment--><!--comment-->
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectAllMembers">
+		SELECT
+		MEM_CODE
+  , MEM_NAME
+  , MEM_PHONE
+  , MEM_POINT
+  , MEM_YN
+  FROM MEMBERSHIP
+	</entry>
+ 
+	<entry key="insertNewMember">
+ INSERT
+ 	INTO MEMBERSHIP
+ 	(
+ 	MEM_CODE
+  , MEM_NAME
+  , MEM_PHONE
+  	)
+ 	VALUES
+ 	(
+ 	SEQ_MEM_CODE.NEXTVAL
+  , ?
+  , ?
+ 	)
+	</entry>
+ 
+</properties>
