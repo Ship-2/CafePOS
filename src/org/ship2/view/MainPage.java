@@ -70,8 +70,8 @@ public class MainPage extends JPanel{
 		employeeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				EmployeeManagementScreen empManagementScreen =
-						new EmployeeManagementScreen(mf);
+				EmployeeManagementPage empManagementScreen =
+						new EmployeeManagementPage(mf);
 				changePanel(empManagementScreen);
 			}
 		});
