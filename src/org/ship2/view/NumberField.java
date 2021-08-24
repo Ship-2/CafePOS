@@ -27,5 +27,3 @@ public class NumberField extends JTextField implements KeyListener {
 		}
 	}
 }
-
-
