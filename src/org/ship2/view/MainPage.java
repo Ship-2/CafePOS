@@ -3,10 +3,8 @@ package org.ship2.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -21,30 +19,55 @@ public class MainPage extends JPanel{
 		this.setBackground(Color.BLUE);
 		this.setLayout(null);
 		
-		JButton menuButton = new JButton();
-		menuButton.setText("메뉴 관리");
-		menuButton.setBounds(100,200,100,100);
+		ImageIcon order = new ImageIcon("images/coffee-shop.png");
+	
+		JButton orderButton = new JButton("주문", order);
+		orderButton.setBounds(140, 20, 453, 327);
+		add(orderButton);
 		
-		JButton orderButton = new JButton();
-		orderButton.setText("주문 관리");
-		orderButton.setBounds(400,200,100,100);
+		JButton membershipButton = new JButton("멤버쉽");
+		membershipButton.setBounds(140, 360, 453, 138);
+		add(membershipButton);
 		
-		JButton memberButton = new JButton();
-		memberButton.setText("회원관리");
-		memberButton.setBounds(700,200,100,100);
+		JButton salesButton = new JButton("매출");
+		salesButton.setBounds(140, 520, 453, 138);
+		add(salesButton);
 		
-		this.add(menuButton);
-		this.add(orderButton);
-		this.add(memberButton);
+		JButton menuManageButton = new JButton("메뉴 관리");
+		menuManageButton.setBounds(660, 20, 420, 224);
+		add(menuManageButton);
 		
+		JButton employeeManageButton = new JButton("직원 관리");
+		employeeManageButton.setBounds(660, 260, 420, 224);
+		add(employeeManageButton);
 		
-		menuButton.addActionListener(new ActionListener() {
+		JButton hrButton = new JButton("출퇴근");
+		hrButton.setBounds(660, 520, 188, 138);
+		add(hrButton);
+		
+		JButton logoutButton = new JButton("로그아웃");
+		logoutButton.setBounds(891, 520, 188, 138);
+		add(logoutButton);
+		
+		/* 메뉴관리 페이지 */
+		menuManageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Menu menupage = new Menu(mf);
 				changePanel(menupage);
 			}
 		});
+		
+		/* 로그인 페이지로 돌아감 */
+		logoutButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LogInPage loginPage = new LogInPage(mf);
+				changePanel(loginPage);
+			}
+		});
+		
+//		/* 주문페이지 */
 //		orderButton.addActionListener(new ActionListener() {
 //			@Override
 //			public void actionPerformed(ActionEvent e) {
@@ -52,7 +75,9 @@ public class MainPage extends JPanel{
 //				changePanel(orderpage);
 //			}
 //		});
-//		memberButton.addActionListener(new ActionListener() {
+		
+		/* 직원관리 페이지 */
+//		employeeManageButton.addActionListener(new ActionListener() {
 //			@Override
 //			public void actionPerformed(ActionEvent e) {
 //				MemberPage memberPge = new MemberPage(mf);
