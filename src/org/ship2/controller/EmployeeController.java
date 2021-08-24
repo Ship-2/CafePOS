@@ -15,6 +15,7 @@ public class EmployeeController {
 		List<EmployeeDTO> employeeList = employeeService.selectAllEmployees();
 		
 		if (!employeeList.isEmpty()) {
+			employeeResultView.displayDmlResult("selectSuccess");
 			employeeResultView.display(employeeList);
 		} else {
 			employeeResultView.displayDmlResult("selectFailed");
@@ -49,7 +50,29 @@ public class EmployeeController {
 		} else {
 			employeeResultView.displayDmlResult("deleteFailed");
 		}
-				
+	
+	}
+
+	/**
+	 * @param empIdFromUser ID of the employee to be updated.
+	 * @param empInfoMap	Information which will be updated.
+	 */
+	public void modifyEmployee(String empIdFromUser, Map<String, String> empInfoMap) {
+		EmployeeDTO empDTO = new EmployeeDTO();
+		
+		empDTO.setEmpName(empInfoMap.get("name"));
+		empDTO.setEmpPhone(empInfoMap.get("phone"));
+		empDTO.setJobCode(Integer.valueOf(empInfoMap.get("jobCode")));
+		empDTO.setEmpId(empInfoMap.get("id"));
+		empDTO.setEmpPw(empInfoMap.get("pw"));
+		
+		int updateResult = employeeService.updateEmployeeInfo(empIdFromUser, empDTO);
+		
+		if (updateResult > 0) {
+			employeeResultView.displayDmlResult("updateSuccess");
+		} else {
+			employeeResultView.displayDmlResult("updateFailed");
+		}
 	}
 
 }

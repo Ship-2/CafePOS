@@ -60,7 +60,7 @@ public class EmployeeDAO {
 		return employeeList;
 	}
 
-	public int insertNewEmployee(Connection conn, EmployeeDTO emp) {
+	public int insertNewEmployee(Connection conn, EmployeeDTO empDTO) {
 		PreparedStatement pstmt = null;
 		int createResult = 0;
 		
@@ -68,11 +68,11 @@ public class EmployeeDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, emp.getEmpName());
-			pstmt.setString(2, emp.getEmpPhone());
-			pstmt.setInt(3, emp.getJobCode());
-			pstmt.setString(4, emp.getEmpId());
-			pstmt.setString(5, emp.getEmpPw());
+			pstmt.setString(1, empDTO.getEmpName());
+			pstmt.setString(2, empDTO.getEmpPhone());
+			pstmt.setInt(3, empDTO.getJobCode());
+			pstmt.setString(4, empDTO.getEmpId());
+			pstmt.setString(5, empDTO.getEmpPw());
 			
 			createResult = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -102,6 +102,29 @@ public class EmployeeDAO {
 		}
 		
 		return deleteResult;
+	}
+
+	public int updateEmployeeInfo(Connection conn, String empIdFromUser, EmployeeDTO empDTO) {
+		PreparedStatement pstmt = null;
+		int updateResult = 0;
+		
+		String query = prop.getProperty("updateEmployeeInfo");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, empDTO.getEmpName());
+			pstmt.setString(2, empDTO.getEmpPhone());
+			pstmt.setInt(3, empDTO.getJobCode());
+			pstmt.setString(4, empDTO.getEmpId());
+			pstmt.setString(5, empDTO.getEmpPw());
+			pstmt.setString(6, empIdFromUser);
+			
+			updateResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return updateResult;
 	}
 
 }

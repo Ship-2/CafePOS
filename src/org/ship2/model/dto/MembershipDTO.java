@@ -1,6 +1,7 @@
 package org.ship2.model.dto;
 
 import java.io.Serializable;
+import java.sql.Connection;
 
 public class MembershipDTO implements Serializable {
 
@@ -8,16 +9,16 @@ public class MembershipDTO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5537838068964234317L;
-	private int memCode;			// È¸¿øÄÚµå
-	private String memName;			// ÀÌ¸§
-	private String memPhone;		// ÀüÈ­¹øÈ£
-	private int memPoint;			// Æ÷ÀÎÆ®
-	private boolean memYn;			// Å»Åğ¿©ºÎ
+	private int memCode;			// ë©¤ë²„ì‹­ì½”ë“œ
+	private String memName;			// íšŒì›ì´ë¦„
+	private String memPhone;		// ì „í™”ë²ˆí˜¸
+	private int memPoint;			// í¬ì¸íŠ¸
+	private String memYn;			// íƒˆí‡´ì—¬ë¶€
 	
 	public MembershipDTO() {	
 	}
 	
-	public MembershipDTO (int memCode, String memName, String memPhone, int memPoint, boolean memYn) {
+	public MembershipDTO (int memCode, String memName, String memPhone, int memPoint, String memYn) {
 		this.memCode = memCode;
 		this.memName = memName;
 		this.memPhone = memPhone;
@@ -57,11 +58,11 @@ public class MembershipDTO implements Serializable {
 		this.memPoint = memPoint;
 	}
 
-	public boolean isMemYn() {
+	public String isMemYn() {
 		return memYn;
 	}
 
-	public void setMemYn(boolean memYn) {
+	public void setMemYn(String memYn) {
 		this.memYn = memYn;
 	}
 
@@ -70,5 +71,7 @@ public class MembershipDTO implements Serializable {
 		return "MembershipDTO [memCode=" + memCode + ", memName=" + memName + ", memPhone=" + memPhone + ", memPoint="
 				+ memPoint + ", memYn=" + memYn + "]";
 	}
+
+	
 	
 }

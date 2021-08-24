@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<entry key="selectAllEmployees">
-		SELECT
-		       A.EMP_CODE
-		     , A.EMP_NAME
-		     , A.EMP_PHONE
-		     , A.JOB_CODE
-		     , A.EMP_ID
-		     , A.EMP_PW
-		  FROM EMPLOYEE A
-	</entry>
-	
 	<entry key="insertNewEmployee">
 		INSERT
 		  INTO EMPLOYEE A
@@ -33,11 +22,29 @@
 		, ?
 		)
 	</entry>
-	
+	<entry key="selectAllEmployees">
+		SELECT
+		       A.EMP_CODE
+		     , A.EMP_NAME
+		     , A.EMP_PHONE
+		     , A.JOB_CODE
+		     , A.EMP_ID
+		     , A.EMP_PW
+		  FROM EMPLOYEE A
+	</entry>
+	<entry key="updateEmployeeInfo">
+		UPDATE
+			   EMPLOYEE A
+		   SET A.EMP_NAME = ?
+		     , A.EMP_PHONE = ?
+		     , A.JOB_CODE = ?
+		     , A.EMP_ID = ?
+		     , A.EMP_PW = ?
+		 WHERE A.EMP_ID = ?
+	</entry>
 	<entry key="deleteEmployee">
 		DELETE
 		  FROM EMPLOYEE A
 		 WHERE A.EMP_ID = ?
 	</entry>
-	
 </properties>

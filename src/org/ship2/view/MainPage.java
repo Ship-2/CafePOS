@@ -33,10 +33,16 @@ public class MainPage extends JPanel{
 		memberButton.setText("회원관리");
 		memberButton.setBounds(700,200,100,100);
 		
+		// FROM 송언석 : 잠시 GUI 테스트 동안에 꼽사리좀 끼겠습니다.
+		JButton employeeButton = new JButton();
+		employeeButton.setText("직원 관리");
+		employeeButton.setBounds(100,400,100,100);
+		
 		this.add(menuButton);
 		this.add(orderButton);
 		this.add(memberButton);
-		
+		// FROM 송언석 : 잠시 GUI 테스트 동안에 꼽사리좀 끼겠습니다.
+		this.add(employeeButton);
 		
 		menuButton.addActionListener(new ActionListener() {
 			@Override
@@ -59,6 +65,16 @@ public class MainPage extends JPanel{
 //				changePanel(memberPge);
 //			}
 //		});
+		
+		// FROM 송언석 : 잠시 GUI 테스트 동안에 꼽사리좀 끼겠습니다.
+		employeeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				EmployeeManagementScreen empManagementScreen =
+						new EmployeeManagementScreen(mf);
+				changePanel(empManagementScreen);
+			}
+		});
 		
 		mf.add(this);
 	}
