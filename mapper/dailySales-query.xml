@@ -8,7 +8,7 @@
 		     , A.REFUND
 		     , A.TOTAL_SALES
 		  FROM DAILY_SALES A
-		 WHERE TO_CHAR(SALES_DATE) BETWEEN ? AND ? 
+		 WHERE TO_CHAR(SALES_DATE, 'yy/MM/dd') BETWEEN ? AND ? 
 		 ORDER BY SALES_DATE
     </entry>
     
@@ -18,7 +18,72 @@
 		     , SUM(A.REFUND)
 		     , SUM(A.TOTAL_SALES)
 		  FROM DAILY_SALES A
-		 WHERE TO_CHAR(SALES_DATE) BETWEEN ? AND ? 
+		 WHERE TO_CHAR(SALES_DATE, 'yy/MM/dd') BETWEEN ? AND ? 
+    </entry>
+    
+    <entry key="selectDailySalesBySalesDate">
+    	SELECT
+		       A.SALES_DATE
+		     , A.SALES
+ 		     , A.REFUND
+		     , A.TOTAL_SALES
+		  FROM DAILY_SALES A
+		 WHERE TO_CHAR(SALES_DATE, 'yy/MM/dd') = ?
+    </entry>
+    
+    <entry key="insertDailySales">
+    	INSERT
+		  INTO DAILY_SALES
+		(
+		  SELECT
+		       TO_CHAR(A.ORDER_DATE,'yy/MM/dd')
+		     , SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
+		     , 0
+		     , SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
+		    FROM POS_ORDER A
+		    JOIN MENU_ORDER B ON (A.ORDER_CODE = B.ORDER_CODE)
+		    JOIN MENU C ON (B.MENU_CODE = C.MENU_CODE)
+		    JOIN MENU_SIZE D ON (B.SIZE_CODE = D.SIZE_CODE)
+		   WHERE TO_CHAR(A.ORDER_DATE, 'yy/MM/dd') = ?
+		   GROUP BY TO_CHAR(A.ORDER_DATE,'yy/MM/dd')
+		)
+    </entry>
+    
+    <entry key="updateDailySalesByInsert">
+    	UPDATE
+		       DAILY_SALES UI
+		  SET UI.SALES = UI.SALES + (SELECT SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
+		                               FROM POS_ORDER A
+		                               JOIN MENU_ORDER B ON (A.ORDER_CODE = B.ORDER_CODE)
+		                               JOIN MENU C ON (B.MENU_CODE = C.MENU_CODE)
+		                               JOIN MENU_SIZE D ON (B.SIZE_CODE = D.SIZE_CODE)
+		                              WHERE A.ORDER_CODE = ?)
+		    , UI.TOTAL_SALES = UI.TOTAL_SALES + (SELECT SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
+		                               FROM POS_ORDER A
+		                               JOIN MENU_ORDER B ON (A.ORDER_CODE = B.ORDER_CODE)
+		                               JOIN MENU C ON (B.MENU_CODE = C.MENU_CODE)
+		                               JOIN MENU_SIZE D ON (B.SIZE_CODE = D.SIZE_CODE)
+		                              WHERE A.ORDER_CODE = ?)
+		 WHERE TO_CHAR(UI.SALES_DATE, 'yy/MM/dd') = ?
+    </entry>
+    
+    <entry key="updateDailySalesByDelete">
+    UPDATE
+		       DAILY_SALES UI
+		  SET UI.SALES = UI.SALES - (SELECT SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
+		                               FROM POS_ORDER A
+		                               JOIN MENU_ORDER B ON (A.ORDER_CODE = B.ORDER_CODE)
+		                               JOIN MENU C ON (B.MENU_CODE = C.MENU_CODE)
+		                               JOIN MENU_SIZE D ON (B.SIZE_CODE = D.SIZE_CODE)
+		                              WHERE A.ORDER_CODE = ?)
+		    , UI.TOTAL_SALES = UI.TOTAL_SALES - (SELECT SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
+		                               FROM POS_ORDER A
+		                               JOIN MENU_ORDER B ON (A.ORDER_CODE = B.ORDER_CODE)
+		                               JOIN MENU C ON (B.MENU_CODE = C.MENU_CODE)
+		                               JOIN MENU_SIZE D ON (B.SIZE_CODE = D.SIZE_CODE)
+		                              WHERE A.ORDER_CODE = ?)
+		 WHERE TO_CHAR(UI.SALES_DATE, 'yy/MM/dd') = ?
+    
     </entry>
 
 </properties>
