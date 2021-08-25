@@ -38,5 +38,37 @@ public class MembershipController {
 			memberResultView.showResult("addFailed");
 		}
 	}
+	
+	public void deleteEmployee(String memCode) {
+		
+		int deleteResult = membershipService.deleteMember(memCode);
+		
+		if (deleteResult > 0) {
+			memberResultView.showResult("deleteSuccess");
+		} else {
+			memberResultView.showResult("deleteFailed");
+		}
+	}
 
+	
+
+	
+//	public void updateMember(String , Map<String, String> empInfoMap) {
+//		EmployeeDTO empDTO = new EmployeeDTO();
+//		
+//		empDTO.setEmpName(empInfoMap.get("name"));
+//		empDTO.setEmpPhone(empInfoMap.get("phone"));
+//		empDTO.setJobCode(Integer.valueOf(empInfoMap.get("jobCode")));
+//		empDTO.setEmpId(empInfoMap.get("id"));
+//		empDTO.setEmpPw(empInfoMap.get("pw"));
+//		
+//		int updateResult = employeeService.updateEmployeeInfo(empIdFromUser, empDTO);
+//		
+//		if (updateResult > 0) {
+//			employeeResultView.displayDmlResult("updateSuccess");
+//		} else {
+//			employeeResultView.displayDmlResult("updateFailed");
+//		}
+//	}
 }
+

@@ -3,28 +3,42 @@
 <properties>
 	<entry key="selectAllMembers">
 		SELECT
-		MEM_CODE
-  , MEM_NAME
-  , MEM_PHONE
-  , MEM_POINT
-  , MEM_YN
-  FROM MEMBERSHIP
+    		MEM_CODE
+		  	  , MEM_NAME
+		  	  , MEM_PHONE
+		  	  , MEM_POINT
+		  	  , MEM_YN
+     	 FROM MEMBERSHIP
 	</entry>
  
 	<entry key="insertNewMember">
- INSERT
- 	INTO MEMBERSHIP
- 	(
- 	MEM_CODE
-  , MEM_NAME
-  , MEM_PHONE
-  	)
- 	VALUES
- 	(
- 	SEQ_MEM_CODE.NEXTVAL
-  , ?
-  , ?
- 	)
+		INSERT
+	 		INTO MEMBERSHIP
+ 			(
+ 			MEM_CODE
+	  	  , MEM_NAME
+	  	  , MEM_PHONE
+	  		)
+ 			VALUES
+	 		(
+ 			SEQ_MEM_CODE.NEXTVAL
+ 	 		, ?
+ 	 		, ?
+ 			)
 	</entry>
- 
+	
+ 	<entry key = "deleteMember">
+ 		DELETE
+ 			FROM MEMBERSHIP
+ 		   WHERE MEM_CODE = ?
+ 	</entry>
+ 	
+ 	<entry key ="updateMember">
+		UPDATE
+			MEMBERSHIP
+			    SET MEM_PHONE = ?
+		        ,   MEM_YN = ?
+		 WHERE MEM_CODE = ?
+ 	</entry>
+ 	
 </properties>
