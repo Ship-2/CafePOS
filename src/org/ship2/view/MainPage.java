@@ -3,21 +3,31 @@ package org.ship2.view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.ship2.controller.LogInController;
+import org.ship2.model.dto.EmployeeDTO;
+
+import jdk.internal.misc.FileSystemOption;
+
 public class MainPage extends JPanel{
 
 	private MainFrame mf;
+	public Boolean isManager = false;
 	
 	public MainPage(MainFrame mainFrame) {
 		this.mf = mainFrame;
-		
 		this.setSize(1280, 720);
 		this.setBackground(Color.BLUE);
 		this.setLayout(null);
+		
+//		System.out.println(check.isManager);
+		
+		/* EmployeeDTO 용 employee 만들기 */
 		
 		ImageIcon order = new ImageIcon("images/coffee-shop.png");
 	
@@ -51,12 +61,15 @@ public class MainPage extends JPanel{
 		logoutButton.setBounds(891, 520, 188, 138);
 		add(logoutButton);
 		
+		
 		/* 메뉴관리 페이지 */
 		menuManageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (isManager) {
 				Menu menupage = new Menu(mf);
 				changePanel(menupage);
+				}
 			}
 		});
 		
@@ -70,7 +83,7 @@ public class MainPage extends JPanel{
 			}
 		});
 		
-//		/* 주문페이지 */
+		/* 주문페이지 */
 		orderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -78,6 +91,28 @@ public class MainPage extends JPanel{
 				changePanel(orderpage);
 			}
 		});
+		
+		
+		/* 매출관리 페이지 */
+		salesButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (isManager) {
+				DailySalesGuiView salesFrame = new DailySalesGuiView();
+				salesFrame.setVisible(true);
+				}
+			}
+		});
+		
+//		/* 매출관리 페이지 */
+//		salesButton.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				DailySalesGuiView salesFrame = new DailySalesGuiView(mf);
+//				changePanel(salesFrame);
+//			}
+//		});
 		
 		/* 직원관리 페이지 */
 //		employeeManageButton.addActionListener(new ActionListener() {
@@ -92,9 +127,11 @@ public class MainPage extends JPanel{
 		employeeManageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (isManager) {
 				EmployeeManagementPage empManagementPage =
 						new EmployeeManagementPage(mf);
 				changePanel(empManagementPage);
+				}
 			}
 		});
 		
@@ -106,4 +143,22 @@ public class MainPage extends JPanel{
 		mf.add(panel);
 		mf.repaint();
 	}
-}	
+
+	public List<EmployeeDTO> selectEmployee() {
+		LogInController logInController = new LogInController();
+
+		List<EmployeeDTO> employeeList = logInController.selectAllEmployee();
+		return employeeList;
+	}
+	
+//	public void checkManager() {
+//		employeeList = selectEmployee();
+//		for (int i = 0; i < employeeList.size(); i++) {
+//			EmployeeDTO employee = employeeList.get(i);
+//			if (employee.getJobCode() > 1) {		
+//				this.setEnabled(false);
+//			}
+//		}
+//	}
+	
+}

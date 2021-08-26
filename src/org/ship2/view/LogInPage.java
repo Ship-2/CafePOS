@@ -28,6 +28,9 @@ public class LogInPage extends JPanel {
 	private JButton okButton;
 	private List<EmployeeDTO> employeeList;
 
+	public boolean isManager;
+	
+
 	/* 로그인 페이지 패널 */
 	public LogInPage(MainFrame mainFrame) {
 		this.mf = mainFrame;
@@ -104,15 +107,18 @@ public class LogInPage extends JPanel {
 				String idtext = textField.getText();
 				String pwtext = passwordField.getText();
 				Boolean flag = true;
-
+				
 				for (int i = 0; i < employeeList.size(); i++) {
 					EmployeeDTO employee = employeeList.get(i);
 					if (idtext.equals(employee.getEmpId())) {
 						if (pwtext.equals(employee.getEmpPw())) {
 							System.out.println("로그인 성공!");
 							MainPage mainpage = new MainPage(mf);
-							changePanel(mainpage);
 							flag = false;
+						 if (employee.getJobCode() == 1) {
+							 mainpage.isManager = true;
+						 }
+						 changePanel(mainpage);
 						}
 					}
 				}
@@ -122,6 +128,7 @@ public class LogInPage extends JPanel {
 			}
 		});
 	}
+
 
 	/* 패널 변경 메소드(메인메소드로) */
 	public void changePanel(JPanel panel) {
@@ -133,8 +140,8 @@ public class LogInPage extends JPanel {
 	public List<EmployeeDTO> selectEmployee() {
 		LogInController logInController = new LogInController();
 
-		List<EmployeeDTO> employeelist = logInController.selectAllEmployee();
-		return employeelist;
+		List<EmployeeDTO> employeeList = logInController.selectAllEmployee();
+		return employeeList;
 	}
 
 }

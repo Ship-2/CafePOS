@@ -9,7 +9,5 @@ public class LogInApplication {
 		new MainFrame();
 		LogIn logIn = new LogIn();
 		logIn.logInComplete();
-	
 	}
-
 }
