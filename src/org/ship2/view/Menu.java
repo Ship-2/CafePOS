@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -250,14 +251,7 @@ public class Menu extends JPanel {
 		this.add(panel_1);
 		
 		/* select한 메뉴 리스트를 미리 선언한 배열에 담아 테이블 model에 행으로 추가 */
-		menulist = selectMenu();
-		for (int i = 0; i < menulist.size(); i++) {
-			MenuCategoriSizeDTO menu = menulist.get(i);
-			recode[0] = menu.getMenuName();
-			recode[1] = menu.getUnitPrice();
-			recode[2] = menu.getCategoryName();
-			model.addRow(recode);
-		}
+		selectMenu();
 		
 		// 추가 가능 버튼(텍스트 필드 수정 제한 헤제)
 		insertBtn1.addActionListener(new ActionListener() {
@@ -292,6 +286,7 @@ public class Menu extends JPanel {
 			}
 		});
 		
+		/* 팝업 확인 버튼 클릭 시 해당 팝업 안보이게 처리하는 이벤트 */
 		cancelBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -322,16 +317,7 @@ public class Menu extends JPanel {
 				DefaultTableModel model = (DefaultTableModel)table.getModel();
 				model.setNumRows(0);
 				
-				menulist = selectMenu();
-				for (int i = 0; i < menulist.size(); i++) {
-					MenuCategoriSizeDTO menu = menulist.get(i);
-					recode[0] = menu.getMenuName();
-					recode[1] = menu.getUnitPrice();
-					recode[2] = menu.getCategoryName();
-					
-					model.addRow(recode);
-					notSetTF();
-				}
+				selectMenu();
 			}
 		});
 		
@@ -344,16 +330,7 @@ public class Menu extends JPanel {
 				DefaultTableModel model = (DefaultTableModel)table.getModel();
 				model.setNumRows(0);
 				
-				menulist = selectMenu();
-				for (int i = 0; i < menulist.size(); i++) {
-					MenuCategoriSizeDTO menu = menulist.get(i);
-					recode[0] = menu.getMenuName();
-					recode[1] = menu.getUnitPrice();
-					recode[2] = menu.getCategoryName();
-					
-					model.addRow(recode);
-					notSetTF();
-				}
+				selectMenu();
 			}
 		});
 		
@@ -363,10 +340,7 @@ public class Menu extends JPanel {
 				index = table.getSelectedRow();
 				
 				MenuCategoriSizeDTO in = menulist.get(index);
-				
-//				String menuName = in.getMenuName();
 				String price = Integer.toString(in.getUnitPrice()); 
-//				String category = in.getCategoryName();
 				
 				menuTF.setText(in.getMenuName());
 				priceTF.setText(price);
@@ -456,12 +430,16 @@ public class Menu extends JPanel {
 		
 	} // gui 끝
 	
-	/* 메뉴 select 메소드 */
-	public List<MenuCategoriSizeDTO> selectMenu() {
-		MenuController menuController = new MenuController();
-		
-		List<MenuCategoriSizeDTO> menulist = menuController.selectMenu2();
-		return menulist;
+	/* 메뉴 리스트를 테이블 객체에 담는 메소드 */
+	public void selectMenu() {
+		menulist = menuController.selectMenu2();			// 데이터베이스에 있는 메뉴 리스트 가쟈오는 메소드 호출
+		for (int i = 0; i < menulist.size(); i++) {
+			MenuCategoriSizeDTO menu = menulist.get(i);		// 데이터베이스에서 selet한 메뉴리스트를 DTO에 저장(메뉴 단위)
+			recode[0] = menu.getMenuName();					// 테이블에 들어갈 배열에 메뉴 정보를 담음
+			recode[1] = menu.getUnitPrice();
+			recode[2] = menu.getCategoryName();
+			model.addRow(recode);							// 테이블 모델에 해당 배열 추가
+		}
 	}
 	
 	/* 메뉴 insert 메소드 */
