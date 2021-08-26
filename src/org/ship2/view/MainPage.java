@@ -66,10 +66,10 @@ public class MainPage extends JPanel{
 		menuManageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (isManager) {
+//				if (isManager) {
 				Menu menupage = new Menu(mf);
 				changePanel(menupage);
-				}
+//				}
 			}
 		});
 		
@@ -97,10 +97,10 @@ public class MainPage extends JPanel{
 		salesButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (isManager) {
+//				if (isManager) {
 				DailySalesGuiView salesFrame = new DailySalesGuiView();
 				salesFrame.setVisible(true);
-				}
+//				}
 			}
 		});
 		
@@ -127,11 +127,11 @@ public class MainPage extends JPanel{
 		employeeManageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (isManager) {
+//				if (isManager) {
 				EmployeeManagementPage empManagementPage =
 						new EmployeeManagementPage(mf);
 				changePanel(empManagementPage);
-				}
+//				}
 			}
 		});
 		
