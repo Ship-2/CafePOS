@@ -10,6 +10,16 @@ public class EmployeeResultView {
 		for(EmployeeDTO employee : employeeList) {
 			System.out.println(employee);
 		}
+		
+//		for (int i = 0; i < employeeList.size(); i++) {
+//			Object[] record = new Object[3];
+//			EmployeeDTO emp = employeeList.get(i);
+//			
+//			record[0] = emp.getEmpName();
+//			record[1] = emp.getJobCode();
+//			record[2] = emp.getEmpPhone();
+//		}
+		
 	}
 
 	public void displayDmlResult(String dmlResultCode) {
