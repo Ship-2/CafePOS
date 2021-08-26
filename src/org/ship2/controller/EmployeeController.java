@@ -39,11 +39,11 @@ public class EmployeeController {
 			this.tuples[0] = emp.getEmpName();
 			switch (emp.getJobCode()) {
 			case 1:
-				jobName = "관리자";
+				jobName = "관리자"; break;
 			case 2:
-				jobName = "직원";
+				jobName = "직원"; break;
 			case 3:
-				jobName = "수습";
+				jobName = "수습"; break;
 			}
 			this.tuples[1] = jobName;
 			this.tuples[2] = emp.getEmpPhone();

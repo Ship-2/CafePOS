@@ -240,14 +240,14 @@ public class EmployeeManagementPage extends JPanel {
 				
 				EmployeeDTO emp = employeeController.getEmpList().get(tableIndex);
 				
-				String jobName = new String();
+				String jobName = "";
 				switch (emp.getJobCode()) {
 				case 1:
-					jobName = "관리자";
+					jobName = "관리자"; break;
 				case 2:
-					jobName = "직원";
+					jobName = "직원"; break;
 				case 3:
-					jobName = "수습";
+					jobName = "수습"; break;
 				}
 				
 				empNameTextField.setText(emp.getEmpName());
