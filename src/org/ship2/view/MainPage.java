@@ -71,13 +71,13 @@ public class MainPage extends JPanel{
 		});
 		
 //		/* 주문페이지 */
-//		orderButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				OrderPage orderpage = new OrderPage(mf);
-//				changePanel(orderpage);
-//			}
-//		});
+		orderButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				OrderPage orderpage = new OrderPage(mf);
+				changePanel(orderpage);
+			}
+		});
 		
 		/* 직원관리 페이지 */
 //		employeeManageButton.addActionListener(new ActionListener() {

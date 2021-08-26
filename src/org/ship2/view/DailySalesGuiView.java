@@ -55,7 +55,7 @@ public class DailySalesGuiView extends JFrame {
 		Date end = calendar.getTime();
 		
 		/* spinner */
-		SpinnerDateModel dateModel1 = new SpinnerDateModel(value, start, end, Calendar.DATE);
+		SpinnerDateModel dateModel1 = new SpinnerDateModel(value, start, end, Calendar.DAY_OF_MONTH);
 		
 		JSpinner startDateSpinner = new JSpinner(dateModel1);
 		startDateSpinner.setFont(new Font("나눔고딕", Font.PLAIN, 30));
@@ -63,7 +63,7 @@ public class DailySalesGuiView extends JFrame {
 		setDatePanel.add(startDateSpinner);
 		
 
-		SpinnerDateModel dateModel2 = new SpinnerDateModel(value, start, end, Calendar.DATE);
+		SpinnerDateModel dateModel2 = new SpinnerDateModel(value, start, end, Calendar.DAY_OF_MONTH);
 		
 		JSpinner endDateSpinner = new JSpinner(dateModel2);
 		endDateSpinner.setFont(new Font("나눔고딕", Font.PLAIN, 30));
