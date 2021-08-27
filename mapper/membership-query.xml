@@ -36,7 +36,8 @@
  	<entry key ="updateMember">
 		UPDATE
 			MEMBERSHIP
-			    SET MEM_PHONE = ?
+			    SET MEM_NAME = ?
+			    ,	MEM_PHONE = ?
 		        ,   MEM_YN = ?
 		 WHERE MEM_CODE = ?
  	</entry>

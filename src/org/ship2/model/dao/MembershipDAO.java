@@ -113,8 +113,10 @@ public class MembershipDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, memDTO.getMemPhone());
-			pstmt.setString(2, memDTO.getMemYn());
+			pstmt.setString(1, memDTO.getMemName());
+			pstmt.setString(2, memDTO.getMemPhone());
+			pstmt.setString(3, memDTO.getMemYn());
+			pstmt.setInt(4, memDTO.getMemCode());
 			updateResult = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

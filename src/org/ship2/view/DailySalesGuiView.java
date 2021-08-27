@@ -27,7 +27,7 @@ public class DailySalesGuiView extends JFrame {
 
 	public DailySalesGuiView() {
 		
-		DailySalesGuiController dailySalesController = new DailySalesGuiController();
+		DailySalesGuiController dailySalesGuiController = new DailySalesGuiController();
 		
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -122,7 +122,7 @@ public class DailySalesGuiView extends JFrame {
 				
 				
 		/* ==================== 해당 날짜들의 DailySales select하기 ==================== */
-				List<DailySalesDTO> dailySalesList = dailySalesController.selectDailySales(startDate, endDate);
+				List<DailySalesDTO> dailySalesList = dailySalesGuiController.selectDailySales(startDate, endDate);
 				
 				String salesDate = "";
 				int sales = 0;

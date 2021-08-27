@@ -431,21 +431,21 @@ INSERT
   INTO MENU_ORDER
 VALUES 
 (
-'1', '1', '2', '1'
+  1, 1, 2, 1
 );
 
 INSERT 
   INTO MENU_ORDER
 VALUES 
 (
-'2', '1', '3', '2'
+  2, 1, 3, 2
 );
 
 INSERT 
   INTO MENU_ORDER
 VALUES 
 (
-'2', '6', '1', '3'
+  2, 6, 1, 3
 );
 
 

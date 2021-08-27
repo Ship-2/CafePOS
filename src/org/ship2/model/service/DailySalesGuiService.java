@@ -11,13 +11,13 @@ import org.ship2.model.dto.DailySalesDTO;
 
 public class DailySalesGuiService {
 	
-	private DailySalesGuiDAO dailySalesDAO = new DailySalesGuiDAO();
+	private DailySalesGuiDAO dailySalesGuiDAO = new DailySalesGuiDAO();
 
 	public List<DailySalesDTO> selectDailySales(String startDate, String endDate) {
 
 		Connection con = getConnection();
 		
-		List<DailySalesDTO> dailySalesList = dailySalesDAO.selectDailySales(con, startDate, endDate);
+		List<DailySalesDTO> dailySalesList = dailySalesGuiDAO.selectDailySales(con, startDate, endDate);
 		
 		close(con);
 		

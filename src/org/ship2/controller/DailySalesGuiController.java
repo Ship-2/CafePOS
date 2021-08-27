@@ -7,11 +7,11 @@ import org.ship2.model.service.DailySalesGuiService;
 
 public class DailySalesGuiController {
 	
-	private DailySalesGuiService dailySalesService = new DailySalesGuiService();
+	private DailySalesGuiService dailySalesGuiService = new DailySalesGuiService();
 
 	public List<DailySalesDTO> selectDailySales(String startDate, String endDate) {
 		
-		List<DailySalesDTO> dailySalesList = dailySalesService.selectDailySales(startDate, endDate);
+		List<DailySalesDTO> dailySalesList = dailySalesGuiService.selectDailySales(startDate, endDate);
 		
 		return dailySalesList;
 	}

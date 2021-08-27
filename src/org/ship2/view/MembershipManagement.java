@@ -17,8 +17,8 @@ public class MembershipManagement {
 			System.out.println("-------  < 직원 관리 유닛 테스트 >  -------");
 			System.out.println("1. 멤버 등록 테스트");
 			System.out.println("2. 멤버 조회 테스트");
-			System.out.println("3. 멤버 삭제 테스트");
-			System.out.println("4. 멤버 수정 테스트");
+			System.out.println("3. 멤버 수정 테스트");
+			System.out.println("4. 멤버 삭제 테스트");
 			System.out.println("0. 테스트 종료");
 			System.out.print("번호 선택 : ");
 			int num = sc.nextInt();
@@ -39,17 +39,32 @@ public class MembershipManagement {
 					System.out.println("단위 테스트이기 때문에 수정하고자 하는 멤버의 코드를 입력받고");
 					System.out.println("해당 직원의 기존 정보에 새로 덮어쓸 정보를 입력받습니다.");
 					System.out.println("수정하고자 하는");
-					
+					membershipController.updateMember(
+													   getmemIdFromMembers(),
+													   getMemberInfo());
+					break;
+				case 4:		// D : DELETE existing Member
+					System.out.println("기존 멤버을 삭제하려면 삭제하고자 하는 멤버의"
+										+ "CODE를 입력해 주세요.");
+					System.out.print("삭제하고자 하는 ");
+					membershipController.deleteMember(getmemIdFromMembers());
+					break;
 					
 				case 0: return;
-				default: System.out.println("[에러]: 번호가 틀렸습니다!");
+				default: System.out.println("[오류]: 번호가 틀렸습니다!");
 			}
 
 		} while (true);
 		
 	}
 	
-//	private String 
+	private String getmemIdFromMembers() {
+		System.out.print("멤버의 CODE를 입력하시오 : ");
+		String inputMemId = sc.nextLine();
+		
+		return inputMemId;
+	}
+	
 
 	private Map<String, String> getMemberInfo() {
 		Map<String, String> memInfoMap = new HashMap<>();
@@ -58,6 +73,8 @@ public class MembershipManagement {
 		memInfoMap.put("name", sc.nextLine());
 		System.out.print("멤버 전화번호 입력 : ");
 		memInfoMap.put("phone", sc.nextLine());
+		System.out.print("멤버 탈퇴여부 입력 : ");
+		memInfoMap.put("yn", sc.nextLine());
 		
 		return memInfoMap;
 	}
