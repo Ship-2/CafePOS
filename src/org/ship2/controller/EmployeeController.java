@@ -13,17 +13,23 @@ public class EmployeeController {
 	private EmployeeService employeeService = new EmployeeService();
 	private EmployeeResultView employeeResultView = new EmployeeResultView();
 	private DefaultTableModel tableModel = new DefaultTableModel(new String[] {"이름", "직급", "연락처"}, 0);
-	private Object[] tuples = new Object[3];
+	private Object[] tuples;
 	private List<EmployeeDTO> empList;
+	private boolean isInsertSuccess = false;
+	private boolean isSelectSuccess = false;
+	private boolean isUpdateSuccess = false;
+	private boolean isDeleteSuccess = false;
 
 	public void selectAllEmployees() {
 		List<EmployeeDTO> employeeList = employeeService.selectAllEmployees();
 		
 		if (!employeeList.isEmpty()) {
+			this.isInsertSuccess = true;
 			employeeResultView.displayDmlResult("selectSuccess");
 			employeeResultView.display(employeeList);
 			addRowToModel(employeeList);
 		} else {
+			this.isInsertSuccess = false;
 			employeeResultView.displayDmlResult("selectFailed");
 		}
 		
@@ -33,6 +39,7 @@ public class EmployeeController {
 		this.empList = employeeList;
 		
 		for (int i = 0; i < employeeList.size(); i ++) {
+			tuples = new Object[3];
 			EmployeeDTO emp = employeeList.get(i);
 			String jobName = "";
 			
@@ -53,7 +60,7 @@ public class EmployeeController {
 		
 	}
 
-	public void registNewEmployee(Map<String, String> empInfoMap) {
+	public void registerNewEmployee(Map<String, String> empInfoMap) {
 		EmployeeDTO empDTO = new EmployeeDTO();
 		
 		empDTO.setEmpName(empInfoMap.get("name"));
@@ -65,8 +72,10 @@ public class EmployeeController {
 		int createResult = employeeService.insertNewEmployee(empDTO);
 			
 		if (createResult > 0) {
+			this.isInsertSuccess = true;
 			employeeResultView.displayDmlResult("insertSuccess");
 		} else {
+			this.isInsertSuccess = false;
 			employeeResultView.displayDmlResult("insertFailed");
 		}
 		
@@ -76,8 +85,10 @@ public class EmployeeController {
 		int deleteResult = employeeService.deleteEmployee(employeeId);
 		
 		if (deleteResult > 0) {
+			this.isDeleteSuccess = true;
 			employeeResultView.displayDmlResult("deleteSuccess");
 		} else {
+			this.isDeleteSuccess = false;
 			employeeResultView.displayDmlResult("deleteFailed");
 		}
 	
@@ -99,8 +110,10 @@ public class EmployeeController {
 		int updateResult = employeeService.updateEmployeeInfo(empIdFromUser, empDTO);
 		
 		if (updateResult > 0) {
+			this.isUpdateSuccess = true;
 			employeeResultView.displayDmlResult("updateSuccess");
 		} else {
+			this.isUpdateSuccess = false;
 			employeeResultView.displayDmlResult("updateFailed");
 		}
 	}
@@ -119,6 +132,38 @@ public class EmployeeController {
 
 	public void setEmpList(List<EmployeeDTO> empList) {
 		this.empList = empList;
+	}
+	
+	public boolean isInsertSuccess() {
+		return isInsertSuccess;
+	}
+
+	public void setInsertSuccess(boolean isInsertSuccess) {
+		this.isInsertSuccess = isInsertSuccess;
+	}
+
+	public boolean isSelectSuccess() {
+		return isSelectSuccess;
+	}
+
+	public void setSelectSuccess(boolean isSelectSuccess) {
+		this.isSelectSuccess = isSelectSuccess;
+	}
+
+	public boolean isUpdateSuccess() {
+		return isUpdateSuccess;
+	}
+
+	public void setUpdateSuccess(boolean isUpdateSuccess) {
+		this.isUpdateSuccess = isUpdateSuccess;
+	}
+
+	public boolean isDeleteSuccess() {
+		return isDeleteSuccess;
+	}
+
+	public void setDeleteSuccess(boolean isDeleteSuccess) {
+		this.isDeleteSuccess = isDeleteSuccess;
 	}
 
 }
