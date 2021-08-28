@@ -36,6 +36,12 @@
 		  FROM MENU A
 		 WHERE A.MENU_CODE = ?
 	</entry>
+	<entry key = "seletMenuCode">
+		SELECT
+		       A.MENU_CODE
+  		  FROM MENU A
+  		 WHERE A.MENU_NAME = ?
+	</entry>
 </properties>
 
 

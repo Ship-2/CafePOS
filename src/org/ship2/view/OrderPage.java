@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,8 +19,12 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import org.ship2.controller.MenuController;
+import org.ship2.controller.MenuOrderController;
+import org.ship2.controller.PosOrderController;
 import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
+import org.ship2.model.dto.MenuOrderDTO;
+import org.ship2.model.dto.PosOrderDTO;
 
 public class OrderPage extends JPanel{
 	private Scanner sc = new Scanner(System.in);
@@ -42,6 +47,11 @@ public class OrderPage extends JPanel{
 	private List<MenuCategoriSizeDTO> menulist; // 메뉴 리스트 객체
 	private JPanel sizeChoice;
 	private JTextField totalPrice;
+	
+	private PosOrderController posOrderController = new PosOrderController();
+	private MenuOrderController menuOrderController = new MenuOrderController();
+	private JTextField memPointTF;
+	private boolean memFlag;
 	
 	public OrderPage() {}
 	
@@ -97,6 +107,43 @@ public class OrderPage extends JPanel{
 		JButton menuMinusBtn = new JButton("-");
 		menuMinusBtn.setBounds(435, 430, 95, 34);
 		this.add(menuMinusBtn);
+		
+		JButton cashPayBtn = new JButton("현금 결제");
+		cashPayBtn.setBounds(771, 586, 89, 61);
+		this.add(cashPayBtn);
+		
+		JButton cardPayBtn = new JButton("카드 결제");
+		cardPayBtn.setBounds(884, 586, 89, 61);
+		this.add(cardPayBtn);
+		
+		JButton pointPayBtn = new JButton("포인트 결제");
+		pointPayBtn.setBounds(995, 586, 103, 61);
+		this.add(pointPayBtn);
+		
+		JTextField memNumTF = new JTextField();
+		memNumTF.setBounds(760, 450, 297, 41);
+		memNumTF.setColumns(10);
+		this.add(memNumTF);
+		
+		JLabel memNumLB = new JLabel("회원 전화번호");
+		memNumLB.setFont(new Font("굴림", Font.PLAIN, 15));
+		memNumLB.setBounds(655, 452, 116, 36);
+		this.add(memNumLB);
+		
+		JButton selectMemBtn = new JButton("조회");
+		selectMemBtn.setBounds(1060, 450, 60, 41);
+		this.add(selectMemBtn);
+		
+		memPointTF = new JTextField();
+		memPointTF.setVisible(false);
+		memPointTF.setColumns(10);
+		memPointTF.setBounds(760, 509, 297, 32);
+		this.add(memPointTF);
+		
+		JLabel memPointLB = new JLabel("포인트 잔액 :");
+		memPointLB.setFont(new Font("굴림", Font.PLAIN, 15));
+		memPointLB.setBounds(655, 509, 116, 36);
+		this.add(memPointLB);
 		
 		JTable table = new JTable(model);
 		scrollpane = new JScrollPane(table);
@@ -180,10 +227,19 @@ public class OrderPage extends JPanel{
 			}
 		});
 		
+		/* 메뉴 1개 감소 이벤트 */
 		menuMinusBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				minusMenu();
+			}
+		});
+		
+		/* 현금 결제 버튼 이벤트 */
+		cashPayBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				payment();
 			}
 		});
 	}
@@ -323,4 +379,62 @@ public class OrderPage extends JPanel{
 		}
 		totalPrice.setText(Integer.toString(price));	// Sting으로 변환하여 textfield에 저장(출력)
 	}
+	
+	/* 결제 메소드 */
+	public void payment() {
+		if(!memFlag) {
+			PosOrderDTO order = new PosOrderDTO();
+			order.setPayCode(1);
+			int result = posOrderController.insertOrder(order);		// 인서트가 실패한 경우 result = 0
+			insertOrderList();
+		} else {
+			PosOrderDTO order = new PosOrderDTO();
+			order.setPayCode(1);
+//			order.setMemCode();
+			int result = posOrderController.insertOrder(order);		// 인서트가 실패한 경우 result = 0
+			insertOrderList();
+		}
+		deleteAllMenu();
+	}
+	
+	
+	public void insertOrderList() {
+		
+		List<MenuOrderDTO> menuOrderList = new ArrayList<>();
+		for (int i = 0; i < model1.getRowCount(); i++) {
+			
+			 MenuOrderDTO menuOrder = new MenuOrderDTO();
+			 int menuCode = menuController.seletMenuCode((String)model1.getValueAt(i, 0));
+			 menuOrder.setMenuCode(menuCode);
+			 
+			 menuOrder.setQuan((int)model1.getValueAt(i, 1));
+			 
+			 if(model1.getValueAt(i, 2).equals("regular")) {
+				 menuOrder.setSizeCode(1);
+			 } else if(model1.getValueAt(i, 2).equals("large")) {
+				 menuOrder.setSizeCode(2);
+			 } else if(model1.getValueAt(i, 2).equals("oneSize")) {
+				 menuOrder.setSizeCode(3);
+			 }
+			 menuOrderList.add(menuOrder);
+		}
+		insertOrder(menuOrderList);
+	}
+	
+	public void insertOrder(List<MenuOrderDTO> menuOrderList) {
+		menuOrderController.insertMenuOrder(menuOrderList);
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

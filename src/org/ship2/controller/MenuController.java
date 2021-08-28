@@ -40,5 +40,11 @@ public class MenuController {
 		
 		return result;
 	}
+
+	public int seletMenuCode(String menuName) {
+		int result = orderService.seletMenuCode(menuName);
+		
+		return result;
+	}
 	
 }
