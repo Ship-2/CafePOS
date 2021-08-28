@@ -22,7 +22,7 @@ public class MainPage extends JPanel{
 	public MainPage(MainFrame mainFrame) {
 		this.mf = mainFrame;
 		this.setSize(1280, 720);
-		this.setBackground(Color.BLUE);
+		this.setBackground(Color.GRAY);
 		this.setLayout(null);
 		
 //		System.out.println(check.isManager);
@@ -94,25 +94,7 @@ public class MainPage extends JPanel{
 		
 		
 		/* 매출관리 페이지 */
-		salesButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//				if (isManager) {
-				DailySalesGuiView salesFrame = new DailySalesGuiView();
-				salesFrame.setVisible(true);
-//				}
-			}
-		});
 		
-//		/* 매출관리 페이지 */
-//		salesButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				
-//				DailySalesGuiView salesFrame = new DailySalesGuiView(mf);
-//				changePanel(salesFrame);
-//			}
-//		});
 		
 		/* 직원관리 페이지 */
 //		employeeManageButton.addActionListener(new ActionListener() {
