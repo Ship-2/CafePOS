@@ -58,12 +58,16 @@ public class MembershipDTO implements Serializable {
 		this.memPoint = memPoint;
 	}
 
-	public String isMemYn() {
+	public String MemYn() {
 		return memYn;
 	}
 
 	public void setMemYn(String memYn) {
 		this.memYn = memYn;
+	}
+	
+	public String getMemYn() {
+		return memYn;
 	}
 
 	@Override
@@ -71,6 +75,7 @@ public class MembershipDTO implements Serializable {
 		return "MembershipDTO [memCode=" + memCode + ", memName=" + memName + ", memPhone=" + memPhone + ", memPoint="
 				+ memPoint + ", memYn=" + memYn + "]";
 	}
+
 
 	
 	

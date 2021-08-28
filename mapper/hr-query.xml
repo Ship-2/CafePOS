@@ -1,3 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-
+<properties>
+	<entry key="selectAllEmployee">
+		SELECT
+		       A.EMP_CODE
+		     , A.EMP_NAME
+		     , A.EMP_PHONE
+		  FROM EMPLOYEE A
+		 ORDER BY A.EMP_CODE
+    </entry>
+    
+    <entry key="selectHrByEmpCode">
+    	SELECT
+		       B.HR_DATE
+		     , B.EMP_CODE
+		     , B.CLOCK_IN
+		     , B.CLOCK_OUT
+		  FROM HR B
+		 WHERE B.EMP_CODE = ?
+		 ORDER BY B.HR_DATE DESC
+    </entry>
+    
+    <entry key="insertHr">
+    	INSERT
+		  INTO HR
+		(
+		  HR_DATE, EMP_CODE, CLOCK_IN
+		)
+		VALUES
+		(
+		  TO_CHAR(SYSDATE, 'yy/MM/dd'), ?, TO_CHAR(SYSDATE, 'HH24:MI:SS')
+		)
+    </entry>
+    
+    <entry key="updateClockOut">
+    	UPDATE
+		       HR
+		  SET HR.CLOCK_OUT = TO_CHAR(SYSDATE, 'HH24:MI:SS')
+		 WHERE HR.HR_DATE = TO_CHAR(SYSDATE, 'yy/MM/dd') 
+		   AND HR.EMP_CODE = ?
+    </entry>
+    
+    <entry key="updateHr">
+    	UPDATE
+		       HR
+		  SET HR.CLOCK_IN = ?
+		    , HR.CLOCK_OUT = ?
+		 WHERE HR.HR_DATE = ?
+		   AND HR.EMP_CODE = ?
+    </entry>
+</properties>

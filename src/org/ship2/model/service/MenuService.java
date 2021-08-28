@@ -75,4 +75,14 @@ public class MenuService {
 		return result;
 	}
 
+	public int seletMenuCode(String menuName) {
+		Connection con = getConnection();
+		
+		int result = menuDAO.seletMenuCode(con, menuName);
+		
+		close(con);
+		
+		return result;
+	}
+
 }
