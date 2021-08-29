@@ -56,8 +56,8 @@ public class EmployeeManagementPage extends JPanel {
 	private final Color successColor = Color.GREEN;
 	private final Color failedColor = Color.RED;
 	private final Color normalColor = Color.BLACK;
-	private String selectedEmpName;
-	private String selectedEmpId;
+	private String selectedEmpName = new String();
+	private String selectedEmpId = new String();
 	
 	/**
 	 * Default Ctor
@@ -430,6 +430,7 @@ public class EmployeeManagementPage extends JPanel {
 				
 				dmlResultPopUp.setVisible(true);
 				if (employeeController.isInsertSuccess()) {
+					eraseAllEmployeeInfo();
 					refreshEmpListTable();
 					
 					dmlResultPopUpMessage.setText("직원 추가 작업이 성공적으로 수행되었습니다!");
@@ -470,11 +471,42 @@ public class EmployeeManagementPage extends JPanel {
 		});
 		
 		deleteButton.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				registerButton.setEnabled(false);
+				modifyButton.setEnabled(false);
+				deleteConfirmPopUp.setVisible(true);
+			}
+		});
+		
+		deleteConfirmPopUpConfirmButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				employeeController.deleteEmployee(selectedEmpId);
+				deleteConfirmPopUp.setVisible(false);
 				
+				dmlResultPopUp.setVisible(true);
+				if (employeeController.isDeleteSuccess()) {
+					eraseAllEmployeeInfo();
+					refreshEmpListTable();
+					
+					dmlResultPopUpMessage.setText("직원 삭제 작업이 성공적으로 수행되었습니다!");
+					dmlResultPopUp.setBorder(new LineBorder(successColor, 2, true));
+					
+					employeeController.setInsertSuccess(false);
+				} else {
+					dmlResultPopUpMessage.setText("직원 삭제 작업을 실패했습니다!");
+					dmlResultPopUp.setBorder(new LineBorder(failedColor, 2, true));
+				}
+			}
+		});
+		
+		deleteConfirmPopUpCancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteConfirmPopUp.setVisible(false);
+				registerButton.setEnabled(true);
+				modifyButton.setEnabled(true);
 			}
 		});
 		
@@ -483,36 +515,47 @@ public class EmployeeManagementPage extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				dmlResultPopUp.setVisible(false);
 				
-				/* determine whether INSERT procedure is over,
-				 * and make other UPDATE, DELETE button enable/disable.
+				/* determine whether INSERT process is over,
+				 * then make other UPDATE, DELETE button enable/disable.
 				 */
 				if (registerConfirmButton.isEnabled()
 						&& !modifyConfirmButton.isEnabled()) {
-					// INSERT procedure is NOT over
+					// when INSERT process is NOT over
 					modifyButton.setEnabled(false);
 					deleteButton.setEnabled(false);
 				} else if (!registerConfirmButton.isEnabled()
 						&& !modifyConfirmButton.isEnabled()){
-					// INSERT procedure is over
+					// when INSERT process is over
 					modifyButton.setEnabled(true);
 					deleteButton.setEnabled(true);
 					eraseAllEmployeeInfo();
 				}
 				
-				/* determine whether UPDATE procedure is over,
-				 * and make other INSERT, DELETE button enable/disable.
+				/* determine whether UPDATE process is over,
+				 * then make other INSERT, DELETE button enable/disable.
 				 */
 				if (modifyConfirmButton.isEnabled()
 						&& !registerConfirmButton.isEnabled()) {
-					// UPDATE procedure is NOT over
+					// when UPDATE process is NOT over
 					registerButton.setEnabled(false);
 					deleteButton.setEnabled(false);
 				} else if (!modifyConfirmButton.isEnabled()
 						&& !registerConfirmButton.isEnabled()){
-					// UPDATE procedure is over
+					// when UPDATE process is over
 					registerButton.setEnabled(true);
 					deleteButton.setEnabled(true);
 					eraseAllEmployeeInfo();
+				}
+				
+				/* Unlike other processes above, DELETE process do not require
+				 * detailed processing. Therefore it only need to determine
+				 * whether current ongoing process is DELETE process, or not.
+				 */
+				if (!registerConfirmButton.isEnabled()
+						&& !modifyConfirmButton.isEnabled()) {
+					// when current ongoing process is DELETE process.
+					registerButton.setEnabled(true);
+					modifyButton.setEnabled(true);
 				}
 			}
 		});
@@ -548,12 +591,13 @@ public class EmployeeManagementPage extends JPanel {
 				}
 				
 				empNameTextField.setText(emp.getEmpName());
-				selectedEmpName = jobName;
 				empJobTextField.setText(jobName);
 				empIdTextField.setText(emp.getEmpId());
-				selectedEmpName = emp.getEmpId();
 				empPwTextField.setText(emp.getEmpPw());
-				empPhoneTextField.setText(emp.getEmpPhone()); 
+				empPhoneTextField.setText(emp.getEmpPhone());
+				
+				selectedEmpName = emp.getEmpName();
+				selectedEmpId = emp.getEmpId();
 			}
 		});
 		
@@ -568,7 +612,7 @@ public class EmployeeManagementPage extends JPanel {
 	 * @methodName : makeJobComboBoxVisible
 	 * @author : UnSuk Song
 	 * @date : 2021.08.28
-	 * @brief : Make JobTextField invisible and make JobComboBox visible.
+	 * @brief : Make JobTextField invisible and JobComboBox visible.
 	 * 
 	 * @param b set true if want to bring JobComboBox at the top of panel
 	 *          and make visible.
@@ -582,8 +626,8 @@ public class EmployeeManagementPage extends JPanel {
 	 * @methodName : getEmployeeeInfoFromUser
 	 * @author : UnSuk Song
 	 * @date : 2021.08.28
-	 * @brief : Generate HashMap and put information of employee to register
-	 *          into it.
+	 * @brief : Generate HashMap with information of employee from JTextField
+	 *          and JComboBox.
 	 * 
 	 * @return empInfoMap HashMap of information of employee to register.
 	 */
