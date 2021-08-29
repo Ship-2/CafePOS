@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -298,7 +299,9 @@ public class OrderPage extends JPanel{
 		orederCancleBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "주문 삭제 완료");
 				deleteDailySales();
+				orderCancleTF.setText("");
 			}
 		});
 		
@@ -315,7 +318,7 @@ public class OrderPage extends JPanel{
 	
 	/* 메뉴 리스트를 테이블 객체에 담는 메소드 */
 	public void menuTable() {
-		menulist = menuController.selectMenu2();			// 데이터베이스에 있는 메뉴 리스트 가쟈오는 메소드 호출
+		menulist = menuController.selectMenu();			// 데이터베이스에 있는 메뉴 리스트 가쟈오는 메소드 호출
 		for (int i = 0; i < menulist.size(); i++) {
 			MenuCategoriSizeDTO menu = menulist.get(i);		// 데이터베이스에서 selet한 메뉴리스트를 DTO에 저장(메뉴 단위)
 			recode[0] = menu.getMenuName();					// 테이블에 들어갈 배열에 메뉴 정보를 담음

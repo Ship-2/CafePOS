@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,18 +45,18 @@ public class Menu extends JPanel {
 	private JTextField priceTF;		// 가격 텍스트 필드
 	private JButton updateBtn;		// 수정 버튼
 	private JButton insertBtn;		// 추가 버튼
-	private JLabel sameNameErrorTF;
-	private JLabel tochTable;
-	private JLabel notInsert; 
-	private JLabel notcategory; 
+	private JLabel sameNameErrorTF;	// 팝업 메세지
+	private JLabel tochTable;		// 팝업 메세지
+	private JLabel notInsert; 		// 팝업 메세지
+	private JLabel notcategory; 	// 팝업 메세지
 	
+	public Menu() {} 
 	
 	public Menu(MainFrame mainFrame) {
 		/* 메뉴 패널 생성 */
 		this.mf = mainFrame;
 		this.setSize(1280, 720);
 		this.setLayout(null);
-		
 		
 		/* 컴포넌트 생성 */
 		successResult = new JPanel();
@@ -249,9 +250,6 @@ public class Menu extends JPanel {
 		panel_1.setBounds(645, 40, 472, 468);
 		this.add(panel_1);
 		
-		MainPage mainpage = new MainPage(mf);
-		mainpage.isManager = true;
-		
 		/* select한 메뉴 리스트를 미리 선언한 배열에 담아 테이블 model에 행으로 추가 */
 		selectMenu();
 		
@@ -284,10 +282,7 @@ public class Menu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MainPage mainpage = new MainPage(mf);
-				if (true) {
-					mainpage.isManager = true;
-					changePanel(mainpage);
-				}
+				changePanel(mainpage);
 			}
 		});
 		
@@ -307,7 +302,7 @@ public class Menu extends JPanel {
 			}
 		});
 		
-		/* 메뉴 추가 팝업 확인 버튼 클릭 시 테이블 내용 리프레쉬 */
+		/* 메뉴 추가, 수정 팝업 확인 버튼 클릭 시 테이블 내용 리프레쉬 */
 		closeBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -343,12 +338,10 @@ public class Menu extends JPanel {
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				index = table.getSelectedRow();
-				
 				MenuCategoriSizeDTO in = menulist.get(index);
-				String price = Integer.toString(in.getUnitPrice()); 
 				
 				menuTF.setText(in.getMenuName());
-				priceTF.setText(price);
+				priceTF.setText(Integer.toString(in.getUnitPrice()));
 				categoryTF.setText(in.getCategoryName());
 			}
 		});
@@ -357,25 +350,22 @@ public class Menu extends JPanel {
 		insertBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				if(isTFSet() == 1)  {
+				/* 예외 처리 */
+				if(isTFSet() == 1)  {					// 빈 셀로 추가하려는 경우 예외 처리
 					sameNameError.setVisible(true); 
 					notInsert.setVisible(true);
 
-				} else if(isTFSet() == 2) {
+				} else if(isTFSet() == 2) {				// 없는 카테고리로 추가하려는 경우 예외 처리
 					sameNameError.setVisible(true); 
 					notcategory.setVisible(true);
 				} else {
-					int price = Integer.parseInt(priceTF.getText());
-					int category = categoryChange(categoryTF.getText());
-					
+					/* 멤버 변수로 선언해놓은 menuDTO 객체에 값 담기*/
 					menu.setMenuName(menuTF.getText());
-					menu.setUnitPrice(price);
-					menu.setCategoryCode(category);
+					menu.setUnitPrice(Integer.parseInt(priceTF.getText()));		// 형변환
+					menu.setCategoryCode(categoryChange(categoryTF.getText()));	// 카테고리 코드로 변환
 					
-					inputMenu();
+					inputMenu();	// 메뉴 추가 메소드 호출
 				}
-					
 			}
 		});
 		
@@ -383,7 +373,7 @@ public class Menu extends JPanel {
 		updateBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				/* 예외 처리 */
 				if(isTFSet() == 1)  {
 					sameNameError.setVisible(true); 
 					notInsert.setVisible(true);
@@ -391,18 +381,30 @@ public class Menu extends JPanel {
 					sameNameError.setVisible(true); 
 					notcategory.setVisible(true);
 				} else {
-					MenuCategoriSizeDTO selectmenu = menulist.get(index);
-					
-					int price = Integer.parseInt(priceTF.getText());
-					int category = categoryChange(categoryTF.getText()); 
-					
-					menu.setMenuCode(selectmenu.getMenuCode());
+					/* 메뉴 수정 */
+					MenuCategoriSizeDTO selectmenu = menulist.get(index);	// 선택한 메뉴의 DTO 객체 생성
+					/* 멤버 변수로 선언해 놓은 menuDTO 객체에 값 담기*/
+					menu.setMenuCode(selectmenu.getMenuCode());		
 					menu.setMenuName(menuTF.getText());
-					menu.setUnitPrice(price);
-					menu.setCategoryCode(category);
+					menu.setUnitPrice(Integer.parseInt(priceTF.getText()));
+					menu.setCategoryCode(categoryChange(categoryTF.getText()));
 					
-					updateMenu();
+					updateMenu();	// 메뉴 수정 메소드 호출
 				} 
+			}
+		});
+		
+		/* 메뉴 삭제 이벤트 */
+		deleteBtn1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MenuCategoriSizeDTO selectmenu = menulist.get(index); // 선택한 메뉴의 DTO 객체 생성
+				
+				menu.setMenuCode(selectmenu.getMenuCode()); // 선택한 메뉴의 MenuCode(PK) 추출
+				
+				deleteCheck.setVisible(false);	// 삭제 확인 팝업 닫기
+				
+				deleteMenu();	// 메뉴 삭제 메소드 호출
 			}
 		});
 		
@@ -419,25 +421,11 @@ public class Menu extends JPanel {
 			}
 		});
 		
-		/* 메뉴 삭제 이벤트 */
-		deleteBtn1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MenuCategoriSizeDTO selectmenu = menulist.get(index);
-				
-				menu.setMenuCode(selectmenu.getMenuCode());
-				
-				deleteCheck.setVisible(false);
-				
-				deleteMenu();
-			}
-		});
-		
 	} // gui 끝
 	
 	/* 메뉴 리스트를 테이블 객체에 담는 메소드 */
 	public void selectMenu() {
-		menulist = menuController.selectMenu2();			// 데이터베이스에 있는 메뉴 리스트 가쟈오는 메소드 호출
+		menulist = menuController.selectMenu();			// 데이터베이스에 있는 메뉴 리스트 가져오는 메소드 호출
 		for (int i = 0; i < menulist.size(); i++) {
 			MenuCategoriSizeDTO menu = menulist.get(i);		// 데이터베이스에서 selet한 메뉴리스트를 DTO에 저장(메뉴 단위)
 			recode[0] = menu.getMenuName();					// 테이블에 들어갈 배열에 메뉴 정보를 담음
@@ -470,13 +458,10 @@ public class Menu extends JPanel {
 
 	/* 메뉴 추가 시 팝업 창 띄우는 메소드 */
 	public void displayDmlResult(int result) {
-		if(result > 0 && result < 100) {
+		if(result > 0 && result < 1000) {
 			successResult.setVisible(true);
-		} else if(result == 7777) {
+		} else if(result == 7777) {		// 동일 메뉴명 추가 에러 발생
 			sameNameErrorTF.setVisible(true);
-			sameNameError.setVisible(true);
-		} else if(result == 8888) {
-			notInsert.setVisible(true);
 			sameNameError.setVisible(true);
 		}
 	}
@@ -529,11 +514,13 @@ public class Menu extends JPanel {
 		return category1;
 	}
 	
-	/* 빈 셀로 추가, 수정 하려는 경우 에러 메소드 */
+	/* 빈 셀(없는 카테고리)로 추가, 수정 하려는 경우 에러 메소드 */
 	public int isTFSet() {
 		int a = 0;
+		/* 빈 셀로 추가 하려는 경우 */
 		if(menuTF.getText().equals("") || priceTF.getText().equals("") || categoryTF.getText().equals("")) {
 			a = 1;
+		/* 없는 카테고리로 추가 하려는 경우 */
 		} else if(!(categoryTF.getText().equals("커피") || categoryTF.getText().equals("음료") || categoryTF.getText().equals("빵"))) {
 			a = 2;
 		}

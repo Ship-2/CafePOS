@@ -14,9 +14,9 @@ public class MenuController {
 	private MenuResult menuResult = new MenuResult();
 //	private Menu menu = new Menu();
 	
-	public void selectMenu() {
-		menuResult.displayMenu(orderService.selectMenu());
-	}
+//	public void selectMenu() {
+//		menuResult.displayMenu(orderService.selectMenu());
+//	}
 
 	public int insertMenu(MenuDTO inputMenu) {
 		int result = orderService.insertMenu(inputMenu);
@@ -24,7 +24,7 @@ public class MenuController {
 		return result;
 	}
 	
-	public List<MenuCategoriSizeDTO> selectMenu2() {
+	public List<MenuCategoriSizeDTO> selectMenu() {
 		List<MenuCategoriSizeDTO> menulist = orderService.selectMenu();
 		return menulist;
 	}
