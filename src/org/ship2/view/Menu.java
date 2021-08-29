@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -250,6 +249,9 @@ public class Menu extends JPanel {
 		panel_1.setBounds(645, 40, 472, 468);
 		this.add(panel_1);
 		
+		MainPage mainpage = new MainPage(mf);
+		mainpage.isManager = true;
+		
 		/* select한 메뉴 리스트를 미리 선언한 배열에 담아 테이블 model에 행으로 추가 */
 		selectMenu();
 		
@@ -282,7 +284,10 @@ public class Menu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MainPage mainpage = new MainPage(mf);
-				changePanel(mainpage);
+				if (true) {
+					mainpage.isManager = true;
+					changePanel(mainpage);
+				}
 			}
 		});
 		

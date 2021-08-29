@@ -84,7 +84,48 @@ public class MembershipDAO {
 		
 		return createResult;
 	}
+	
+	public int deleteMember(Connection conn, String memCode) {
+		PreparedStatement pstmt = null;
+		int deleteResult = 0;
 		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memCode);
+			
+			deleteResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return deleteResult;
+	
+	}
+	
+	public int updateMember (Connection conn, MembershipDTO memDTO) {
+		PreparedStatement pstmt = null;
+		int updateResult = 0; 
+		
+		String query = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memDTO.getMemName());
+			pstmt.setString(2, memDTO.getMemPhone());
+			pstmt.setString(3, memDTO.getMemYn());
+			pstmt.setInt(4, memDTO.getMemCode());
+			updateResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return updateResult;
+	}
+
 	
 }
 	

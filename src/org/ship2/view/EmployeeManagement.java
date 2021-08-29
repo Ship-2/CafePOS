@@ -34,7 +34,7 @@ public class EmployeeManagement {
 				case 1:		// C: INSERT new employee
 					System.out.println("새로운 직원을 등록합니다.");
 					System.out.println("등록하고자 하는 직원의 정보를 다음 안내 문구에 따라 작성해주세요.");
-					employeeController.registNewEmployee(getEmployeeInfo());
+					employeeController.registerNewEmployee(getEmployeeInfo());
 					break;
 					
 				case 2:		// R : SELECT all employees

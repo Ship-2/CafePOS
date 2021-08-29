@@ -122,4 +122,28 @@ public class MenuDAO {
 		return result;
 	}
 
+	public int seletMenuCode(Connection con, String menuName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("seletMenuCode");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, menuName);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				result = rset.getInt("MENU_CODE");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

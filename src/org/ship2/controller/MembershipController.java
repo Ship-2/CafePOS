@@ -3,6 +3,7 @@ package org.ship2.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.ship2.model.dto.EmployeeDTO;
 import org.ship2.model.dto.MembershipDTO;
 import org.ship2.model.service.MembershipService;
 import org.ship2.view.MemberResultView;
@@ -37,6 +38,34 @@ public class MembershipController {
 		} else {
 			memberResultView.showResult("addFailed");
 		}
+		
+	}
+	public void deleteMember(String memCode) {
+		
+		int deleteResult = membershipService.deleteMember(memCode);
+		
+		if(deleteResult > 0) {
+			memberResultView.showResult("deleteSuccess");
+		} else {
+			memberResultView.showResult("deleteFailed");
+		}
 	}
 
+	public void updateMember(String memIDfromMember, Map<String, String> memInfoMap) {
+		MembershipDTO memDTO = new MembershipDTO();
+		memDTO.setMemName(memInfoMap.get("name"));
+		memDTO.setMemPhone(memInfoMap.get("phone"));
+		memDTO.setMemYn(memInfoMap.get("yn"));
+		memDTO.setMemCode(Integer.valueOf(memIDfromMember));
+		
+		int updateResult = membershipService.updateMember(memDTO);
+		
+		if(updateResult > 0) {
+			memberResultView.showResult("updateSuccess");
+		} else {
+			memberResultView.showResult("updateFailed");
+		}
+	}
+	
+	
 }

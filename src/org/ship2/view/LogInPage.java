@@ -28,8 +28,6 @@ public class LogInPage extends JPanel {
 	private JButton okButton;
 	private List<EmployeeDTO> employeeList;
 
-	public boolean isManager;
-	
 
 	/* 로그인 페이지 패널 */
 	public LogInPage(MainFrame mainFrame) {
@@ -73,6 +71,7 @@ public class LogInPage extends JPanel {
 		JTextField textField = new JTextField();
 		textField.setColumns(10);
 		textField.setBounds(220, 180, 400, 170);
+		textField.setFont(new Font("굴림", Font.BOLD, 30));
 		add(textField);
 		textField.setColumns(10);
 
@@ -80,19 +79,23 @@ public class LogInPage extends JPanel {
 		JPasswordField passwordField = new JPasswordField();
 		passwordField.setColumns(10);
 		passwordField.setBounds(220, 380, 400, 170);
+		passwordField.setFont(new Font("굴림", Font.BOLD, 30));
 		add(passwordField);
 
 		/* 로그인 버튼 */
 		JButton logInButton = new JButton("로그인");
 		logInButton.setBounds(800, 177, 400, 381);
+		logInButton.setFont(new Font("굴림", Font.BOLD, 30));
 		add(logInButton);
 
 		IdLabel = new JLabel("ID");
 		IdLabel.setBounds(22, 226, 152, 71);
+		IdLabel.setFont(new Font("굴림", Font.BOLD, 20));
 		add(IdLabel);
 
 		PwLabel = new JLabel("PASSWORD");
 		PwLabel.setBounds(22, 432, 152, 71);
+		PwLabel.setFont(new Font("굴림", Font.BOLD, 20));
 		add(PwLabel);
 
 		mf.getContentPane().add(this);
