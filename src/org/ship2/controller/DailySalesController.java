@@ -28,7 +28,6 @@ public class DailySalesController {
 		} else {
 			System.out.println("insertDailySales 실패");
 		}
-
 		return salesInsertResult;
 	}
 
@@ -43,7 +42,6 @@ public class DailySalesController {
 		} else {
 			System.out.println("updateDailySalesByInsert 실패");
 		}
-		
 		return salesUpdatetResult;
 	}
 
@@ -58,7 +56,6 @@ public class DailySalesController {
 		} else {
 			System.out.println("updateDailySalesByDelete 실패");
 		}
-		
 		return refundUpdateResult;
 	}
 

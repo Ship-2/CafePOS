@@ -167,7 +167,7 @@ public class DailySalesGuiView extends JFrame {
 		contentPane.add(infoPanel, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DailySalesGuiView.EXIT_ON_CLOSE);
 
 	}
 

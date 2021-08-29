@@ -50,13 +50,13 @@ public class Menu extends JPanel {
 	private JLabel notInsert; 
 	private JLabel notcategory; 
 	
-	public Menu() {} 
 	
 	public Menu(MainFrame mainFrame) {
 		/* 메뉴 패널 생성 */
 		this.mf = mainFrame;
 		this.setSize(1280, 720);
 		this.setLayout(null);
+		
 		
 		/* 컴포넌트 생성 */
 		successResult = new JPanel();

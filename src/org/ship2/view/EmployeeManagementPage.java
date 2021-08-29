@@ -37,6 +37,8 @@ public class EmployeeManagementPage extends JPanel {
 	private JTextField empPwTextField;
 	private JTextField empPhoneTextField;
 	
+	
+	
 	/**
 	 * Default Ctor
 	 * @Note 기본 생성자 사용 금지!!
@@ -63,6 +65,7 @@ public class EmployeeManagementPage extends JPanel {
 		this.mf = mainFrame;
 		this.setSize(1280, 720);
 		this.setLayout(null);
+		
 		
 		
 		/* ------------------------------------------------------
