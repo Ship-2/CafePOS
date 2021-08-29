@@ -286,6 +286,7 @@ public class OrderPage extends JPanel{
 			}
 		});
 		
+		/* 포인트 결제 버튼 이벤트 */ 
 		pointPayBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -293,6 +294,7 @@ public class OrderPage extends JPanel{
 			}
 		});
 		
+		/* 결제 취소 버튼 이벤트 */
 		orederCancleBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -384,14 +386,14 @@ public class OrderPage extends JPanel{
 				break;
 			}
 		}
-		if (flag && size == "large") {	// 메뉴가 신규 추가 되는 경우, 라지 선택 시
+		if (flag && size == "large") {	// 메뉴가 추가 되는 경우, 라지 선택 시
 			recode1[0] = in.getMenuName();
 			recode1[1] = 1;
 			recode1[2] = size;
 			recode1[3] = in.getUnitPrice() + plus;
 			
 			model1.addRow(recode1);
-		} else if(flag && size == "regular") {
+		} else if(flag && size == "regular") {	// 메뉴가 추가 되는 경우, 레귤러 선택 시
 			recode1[0] = in.getMenuName();
 			recode1[1] = 1;
 			recode1[2] = size;
@@ -418,7 +420,7 @@ public class OrderPage extends JPanel{
 			}
 		}
 		
-		if (flag) {		// 메뉴가 신규 추가 되는 경우
+		if (flag) {		// 메뉴가 추가 되는 경우
 			recode1[0] = in.getMenuName();
 			recode1[1] = 1;
 			recode1[2] = "oneSize";
@@ -445,6 +447,7 @@ public class OrderPage extends JPanel{
 			order.setPayCode(1);
 			int result = posOrderController.insertOrder(order);		// 인서트가 실패한 경우 result = 0
 			insertOrderList();
+			receipt();
 		} else {
 			PosOrderDTO order = new PosOrderDTO();
 			order.setPayCode(1);
@@ -452,6 +455,7 @@ public class OrderPage extends JPanel{
 			int result = posOrderController.insertMemOrder(order);		// 인서트가 실패한 경우 result = 0
 			plusPoint();
 			insertOrderList();
+			memReceipt();
 		}
 		deleteAllMenu();
 		setTFReset();
@@ -521,10 +525,44 @@ public class OrderPage extends JPanel{
 		addPointMem.setMemPoint(membershipDTO.getMemPoint() - Integer.valueOf(totalPrice.getText()));
 		membershipController.updateMemberPoint(addPointMem);
 		
+		memPointReceipt();
 		deleteAllMenu();
 		setTFReset();
 		insertDailySales();
 		memFlag = false;
+	}
+	
+	/* 미회원 결제 영수증 */
+	public void receipt() {
+		System.out.println("주문번호 : " + posOrderController.seletMenuCode());
+		
+		for (int i = 0; i < model1.getRowCount(); i++) {
+			System.out.println(model1.getValueAt(i, 0) + "(" + model1.getValueAt(i, 2) + ") " + model1.getValueAt(i, 1) + "개,  가격 : " + model1.getValueAt(i, 3));
+		}
+		System.out.println("총 가격 : " + totalPrice.getText());
+	}
+	
+	/* 회원 결제 영수증 */
+	public void memReceipt() {
+		System.out.println("주문번호 : " + posOrderController.seletMenuCode());
+		
+		for (int i = 0; i < model1.getRowCount(); i++) {
+			System.out.println(model1.getValueAt(i, 0) + "(" + model1.getValueAt(i, 2) + ") " + model1.getValueAt(i, 1) + "개,  가격 : " + model1.getValueAt(i, 3));
+		}
+		System.out.println("총 가격 : " + totalPrice.getText());
+		System.out.println("적립금 : " + (int)(Integer.parseInt(totalPrice.getText()) * 0.05));
+		System.out.println("잔여 포인트 : " + (membershipDTO.getMemPoint() + (int)(Integer.parseInt(totalPrice.getText()) * 0.05)));
+	}
+	
+	/* 포인트 결제 영수증 */
+	public void memPointReceipt() {
+		System.out.println("주문번호 : " + posOrderController.seletMenuCode());
+		
+		for (int i = 0; i < model1.getRowCount(); i++) {
+			System.out.println(model1.getValueAt(i, 0) + "(" + model1.getValueAt(i, 2) + ") " + model1.getValueAt(i, 1) + "개,  가격 : " + model1.getValueAt(i, 3));
+		}
+		System.out.println("총 가격 : " + totalPrice.getText());
+		System.out.println("잔여 포인트 : " + (membershipDTO.getMemPoint() - Integer.parseInt(totalPrice.getText())));
 	}
 	
 	public void insertDailySales() {
@@ -533,16 +571,15 @@ public class OrderPage extends JPanel{
 		today = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		String formDate = sdf.format(today);
-		System.out.println(formDate);
 		
 		String dailySalesDate = formDate;
 		
 		DailySalesDTO dailySales = dailySalesController.selectDailySalesBySalesDate(dailySalesDate);
-		System.out.println(dailySales);
+//		System.out.println(dailySales);
 		
 		//select한 결과를 이용해 첫주문인지 아닌지 판별
 		if (dailySales.getSalesDate() == null) {
-			System.out.println("\n작성한 날짜에 해당되는 데이터가 없다.\n");
+//			System.out.println("\n작성한 날짜에 해당되는 데이터가 없다.\n");
 			
 			/* 
 			 * 당일 첫 주문시 DailySales에 insert
@@ -551,28 +588,26 @@ public class OrderPage extends JPanel{
 			int salesInsertResult =  dailySalesController.insertDailySales(dateOfFirstOrder);
 			
 		} else {
-			System.out.println("작성한 날짜에 해당되는 데이터가 있다.");
+//			System.out.println("작성한 날짜에 해당되는 데이터가 있다.");
 			/* 
 			 * 당일 n번째 주문시 DailySales에 update
 			 */
 			String dateOfNthOrder = dailySalesDate;
 			
 			int insertOrderCode = posOrderController.seletMenuCode(); 
-			System.out.println(insertOrderCode);
+//			System.out.println(insertOrderCode);
 			
 			int salesUpdatetResult = dailySalesController.updateDailySalesByInsert(insertOrderCode, dateOfNthOrder);
 		}
 	}	
 	
 	public void deleteDailySales() {
-		
 		today = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		String formDate = sdf.format(today);
-		System.out.println(formDate);
 		
 		String dateOfDelete = formDate;
-		int deleteOrderCode = Integer.valueOf(orderCancleTF.getText()); //★★★수정할 부분(테스트용 데이터)★★★
+		int deleteOrderCode = Integer.valueOf(orderCancleTF.getText()); 
 		
 		int refundUpdateResult = dailySalesController.updateDailySalesByDelete(deleteOrderCode, dateOfDelete);
 	}
