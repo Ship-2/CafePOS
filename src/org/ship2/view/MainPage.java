@@ -110,7 +110,6 @@ public class MainPage extends JPanel{
 		});
 		
 		
-		/* ★ 나중에 이거만 복붙 ★ */
 		/* 근퇴관리 페이지 */
 		hrButton.addActionListener(new ActionListener() {
 			@Override
@@ -120,7 +119,6 @@ public class MainPage extends JPanel{
 			}
 		});
 		
-		/* ★ 나중에 이거만 복붙 ★ */
 		/* 매출관리 페이지 */
 		salesButton.addActionListener(new ActionListener() {
 			@Override
@@ -154,7 +152,11 @@ public class MainPage extends JPanel{
 				}
 			}
 		});
+		
+		mf.add(this);
 	}
+	
+	
 	
 	public void changePanel(JPanel panel) {
 		mf.remove(this);
