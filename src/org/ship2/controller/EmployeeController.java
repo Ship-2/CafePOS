@@ -14,6 +14,11 @@ public class EmployeeController {
 	private EmployeeResultView employeeResultView = new EmployeeResultView();
 	private DefaultTableModel tableModel = 
 			new DefaultTableModel(new String[] {"이름", "직급", "연락처"}, 0) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1043246425822716636L;
+
 				@Override
 				public boolean isCellEditable(int row, int column) {
 					if (column >= 0)
