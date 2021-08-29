@@ -647,8 +647,9 @@ public class EmployeeManagementPage extends JPanel {
 	 * @methodName : isEmployeeInfoNull
 	 * @author : UnSuk Song
 	 * @date : 2021.08.28
-	 * @brief : Determine whether any information of employee to register is
-	 *          empty. Note that JobComboBox is excluded at these conditions.
+	 * @brief : Determine whether any JTextField, filled with information of
+	 *          employee to register, is empty.
+	 *          Note that JobComboBox is excluded at these conditions.
 	 * 
 	 * @return true if any TextField is empty, false otherwise.
 	 */
