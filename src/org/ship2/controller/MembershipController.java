@@ -67,5 +67,14 @@ public class MembershipController {
 		}
 	}
 	
+	public MembershipDTO selectMem(String memPhone) {
+		
+		return membershipService.selectMem(memPhone);
+	}
+	
+	public int updateMemberPoint(MembershipDTO addPointMem) {
+		return membershipService.updateMemberPoint(addPointMem);
+		
+	}
 	
 }

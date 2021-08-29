@@ -16,19 +16,45 @@ import static org.ship2.common.JDBCTemplate.rollback;
 
 public class PosOrderService {
 	
-	private PosOrderDAO menuDAO = new PosOrderDAO();
+	private PosOrderDAO posOrderDAO = new PosOrderDAO();
 	
 
-	public int insertOrder(PosOrderDTO insetOrder) {
+	public int insertMemOrder(PosOrderDTO insetOrder) {
 		Connection con = getConnection();
 		
-		int result = menuDAO.insertMenu(con, insetOrder);
+		int result = posOrderDAO.insertMemOrder(con, insetOrder);
 		
 		if(result > 0) {
 			commit(con);
 		} else {
 			rollback(con);
 		}
+		
+		close(con);
+		
+		return result;
+	}
+	
+	public int insertOrder(PosOrderDTO insetOrder) {
+		Connection con = getConnection();
+		
+		int result = posOrderDAO.insertOrder(con, insetOrder);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+	
+	public int seletMenuCode() {
+		Connection con = getConnection();
+		
+		int result = posOrderDAO.selectOrderCode(con);
 		
 		close(con);
 		

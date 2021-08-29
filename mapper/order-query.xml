@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<entry key = "insertMemOrder">
+		INSERT 
+		  INTO POS_ORDER
+		(
+		ORDER_CODE, PAY_CODE, MEM_CODE
+		) 
+		VALUES
+		(
+		SEQ_ORDER_CODE.NEXTVAL, ?, ?
+		)
+	</entry>
+	
 	<entry key = "insertOrder">
 		INSERT 
 		  INTO POS_ORDER
@@ -12,10 +24,10 @@
 		SEQ_ORDER_CODE.NEXTVAL, ?
 		)
 	</entry>
+	
+	<entry key = "selectOrderCode">
+		SELECT 
+		 	   MAX(A.ORDER_CODE)
+		  FROM POS_ORDER A	   
+	</entry>
 </properties>
-
-
-
-
-
-

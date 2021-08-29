@@ -14,8 +14,20 @@ public class PosOrderController {
 
 	private PosOrderService posOrder = new PosOrderService();
 
+	public int insertMemOrder(PosOrderDTO insertOrder) {
+		int result = posOrder.insertMemOrder(insertOrder);
+		
+		return result;
+	}
+	
 	public int insertOrder(PosOrderDTO insertOrder) {
 		int result = posOrder.insertOrder(insertOrder);
+		
+		return result;
+	}
+	
+	public int seletMenuCode() {
+		int result = posOrder.seletMenuCode();
 		
 		return result;
 	}

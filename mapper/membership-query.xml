@@ -42,4 +42,21 @@
 		 WHERE MEM_CODE = ?
  	</entry>
  	
+ 	<entry key ="selectMem">
+		SELECT
+			   MEM_CODE
+			 , MEM_NAME
+		  	 , MEM_PHONE
+		  	 , MEM_POINT
+		  	 , MEM_YN  
+		  FROM MEMBERSHIP
+		 WHERE MEM_PHONE = ?
+ 	</entry>
+ 	
+ 	<entry key ="updateMemberPoint">
+		UPDATE MEMBERSHIP
+		   SET MEM_POINT = ?
+		 WHERE MEM_CODE = ?
+ 	</entry>
+ 	
 </properties>
