@@ -12,7 +12,16 @@ import org.ship2.view.EmployeeResultView;
 public class EmployeeController {
 	private EmployeeService employeeService = new EmployeeService();
 	private EmployeeResultView employeeResultView = new EmployeeResultView();
-	private DefaultTableModel tableModel = new DefaultTableModel(new String[] {"이름", "직급", "연락처"}, 0);
+	private DefaultTableModel tableModel = 
+			new DefaultTableModel(new String[] {"이름", "직급", "연락처"}, 0) {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					if (column >= 0)
+						return false;
+					else
+						return true;
+				}
+			};
 	private Object[] tuples;
 	private List<EmployeeDTO> empList;
 	private boolean isInsertSuccess = false;
