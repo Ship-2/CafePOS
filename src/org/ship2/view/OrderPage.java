@@ -64,6 +64,7 @@ public class OrderPage extends JPanel{
 	private boolean memFlag;
 	private DailySalesController dailySalesController = new DailySalesController();
 	private Date today;
+	private JTextField orderCancleTF;
 	
 	public OrderPage() {}
 	
@@ -131,6 +132,20 @@ public class OrderPage extends JPanel{
 		JButton pointPayBtn = new JButton("포인트 결제");
 		pointPayBtn.setBounds(995, 586, 103, 61);
 		this.add(pointPayBtn);
+		
+		JLabel orderCancleLB = new JLabel("취소 주문 번호 :");
+		orderCancleLB.setFont(new Font("굴림", Font.PLAIN, 15));
+		orderCancleLB.setBounds(127, 586, 120, 49);
+		this.add(orderCancleLB);
+		
+		orderCancleTF = new JTextField();
+		orderCancleTF.setColumns(10);
+		orderCancleTF.setBounds(240, 590, 200, 35);
+		this.add(orderCancleTF);
+		
+		JButton orederCancleBtn = new JButton("결제 취소");
+		orederCancleBtn.setBounds(450, 586, 89, 61);
+		this.add(orederCancleBtn);
 		
 		memNumTF = new JTextField();
 		memNumTF.setBounds(760, 450, 297, 41);
@@ -277,6 +292,14 @@ public class OrderPage extends JPanel{
 				paymentPoint();
 			}
 		});
+		
+		orederCancleBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				deleteDailySales();
+			}
+		});
+		
 	}
 	
 	/* 메소드 모음 */
@@ -432,7 +455,7 @@ public class OrderPage extends JPanel{
 		}
 		deleteAllMenu();
 		setTFReset();
-		displayDailySales();
+		insertDailySales();
 		memFlag = false;
 	}
 	
@@ -500,11 +523,11 @@ public class OrderPage extends JPanel{
 		
 		deleteAllMenu();
 		setTFReset();
-		displayDailySales();
+		insertDailySales();
 		memFlag = false;
 	}
 	
-	public void displayDailySales() {
+	public void insertDailySales() {
 		
 		/* ==================== 해당 날짜의 DailySales select하기 ======================================================= */
 		today = new Date();
@@ -540,4 +563,18 @@ public class OrderPage extends JPanel{
 			int salesUpdatetResult = dailySalesController.updateDailySalesByInsert(insertOrderCode, dateOfNthOrder);
 		}
 	}	
+	
+	public void deleteDailySales() {
+		
+		today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		String formDate = sdf.format(today);
+		System.out.println(formDate);
+		
+		String dateOfDelete = formDate;
+		int deleteOrderCode = Integer.valueOf(orderCancleTF.getText()); //★★★수정할 부분(테스트용 데이터)★★★
+		
+		int refundUpdateResult = dailySalesController.updateDailySalesByDelete(deleteOrderCode, dateOfDelete);
+	}
+	
 }
