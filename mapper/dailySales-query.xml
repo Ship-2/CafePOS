@@ -68,9 +68,9 @@
     </entry>
     
     <entry key="updateDailySalesByDelete">
-    UPDATE
+    	UPDATE
 		       DAILY_SALES UI
-		  SET UI.SALES = UI.SALES - (SELECT SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
+		   SET UI.REFUND = UI.REFUND + (SELECT SUM((C.UNIT_PRICE + D.SIZE_PRICE) * B.QUAN)
 		                               FROM POS_ORDER A
 		                               JOIN MENU_ORDER B ON (A.ORDER_CODE = B.ORDER_CODE)
 		                               JOIN MENU C ON (B.MENU_CODE = C.MENU_CODE)

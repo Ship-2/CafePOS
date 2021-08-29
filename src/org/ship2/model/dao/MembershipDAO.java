@@ -125,6 +125,54 @@ public class MembershipDAO {
 		
 		return updateResult;
 	}
+	
+	public MembershipDTO selectMem(Connection con ,String memPhone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MembershipDTO membershipDTO = new MembershipDTO();
+		
+		String query = prop.getProperty("selectMem");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memPhone);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				membershipDTO.setMemCode(rset.getInt("MEM_CODE"));
+				membershipDTO.setMemName(rset.getString("MEM_NAME"));
+				membershipDTO.setMemPhone(rset.getString("MEM_PHONE"));
+				membershipDTO.setMemPoint(rset.getInt("MEM_POINT"));
+				membershipDTO.setMemYn(rset.getString("MEM_YN"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return membershipDTO;
+	}
+	
+	public int updateMemberPoint(Connection conn, MembershipDTO memDTO) {
+		PreparedStatement pstmt = null;
+		int updateResult = 0; 
+		
+		String query = prop.getProperty("updateMemberPoint");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, memDTO.getMemPoint());
+			pstmt.setInt(2, memDTO.getMemCode());
+			updateResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		
+		return updateResult;
+	}
 
 	
 }
