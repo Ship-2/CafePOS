@@ -75,5 +75,33 @@ public class MembershipService {
 		return updateResult;
 	}
 	
+	public MembershipDTO selectMem(String memPhone) {
+		Connection con = getConnection();
+		
+		MembershipDTO membershipDTO = membershipDAO.selectMem(con, memPhone);
+		
+		close(con);
+		
+		return membershipDTO;
+	}
+	
+	public int updateMemberPoint(MembershipDTO memDTO) {
+		Connection conn = getConnection();
+		
+		int updateResult = 0;
+		
+		updateResult = membershipDAO.updateMemberPoint(conn, memDTO);
+		
+		if (updateResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return updateResult;
+	}
+	
 
 }

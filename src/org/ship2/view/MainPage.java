@@ -8,11 +8,10 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import org.ship2.controller.LogInController;
 import org.ship2.model.dto.EmployeeDTO;
-
-import jdk.internal.misc.FileSystemOption;
 
 public class MainPage extends JPanel{
 
@@ -25,40 +24,58 @@ public class MainPage extends JPanel{
 		this.setBackground(Color.GRAY);
 		this.setLayout(null);
 		
-//		System.out.println(check.isManager);
-		
 		/* EmployeeDTO 용 employee 만들기 */
 		
-		ImageIcon order = new ImageIcon("images/coffee-shop.png");
+		ImageIcon order = new ImageIcon("images/order.png");
+		ImageIcon membership = new ImageIcon("images/membership.png");
+		ImageIcon sales = new ImageIcon("images/sales.png");
+		ImageIcon menu = new ImageIcon("images/menu.png");
+		ImageIcon employee = new ImageIcon("images/employee.png");
+		ImageIcon hr = new ImageIcon("images/hr.png");
+		ImageIcon logout = new ImageIcon("images/logout.png");
 	
 		JButton orderButton = new JButton("주문", order);
 		orderButton.setBounds(140, 20, 453, 327);
+		orderButton.setBackground(Color.GRAY);						// 버튼 객체의 배경 회색 지정
+		orderButton.setBorder(new EmptyBorder(0, 0, 0, 0));			// 버튼 객체의 border 안보이게 하는 과정
 		add(orderButton);
 		
-		JButton membershipButton = new JButton("멤버쉽");
+		JButton membershipButton = new JButton("멤버쉽", membership);
 		membershipButton.setBounds(140, 360, 453, 138);
+		membershipButton.setBackground(Color.GRAY);
+		membershipButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add(membershipButton);
 		
-		JButton salesButton = new JButton("매출");
+		JButton salesButton = new JButton("매출", sales);
 		salesButton.setBounds(140, 520, 453, 138);
+		salesButton.setBackground(Color.GRAY);
+		salesButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add(salesButton);
 		
-		JButton menuManageButton = new JButton("메뉴 관리");
+		JButton menuManageButton = new JButton("메뉴 관리", menu);
 		menuManageButton.setBounds(660, 20, 420, 224);
+		menuManageButton.setBackground(Color.GRAY);
+		menuManageButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add(menuManageButton);
 		
 		// FROM 송언석 : 잠시 GUI 테스트 동안에 꼽사리좀 끼겠습니다.
 		/* 직원 관리 버튼 */
-		JButton employeeManageButton = new JButton("직원 관리");
+		JButton employeeManageButton = new JButton("직원 관리", employee);
 		employeeManageButton.setBounds(660, 260, 420, 224);
+		employeeManageButton.setBackground(Color.GRAY);
+		employeeManageButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add(employeeManageButton);
 		
-		JButton hrButton = new JButton("출퇴근");
+		JButton hrButton = new JButton("출퇴근", hr);
 		hrButton.setBounds(660, 520, 188, 138);
+		hrButton.setBackground(Color.GRAY);
+		hrButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add(hrButton);
 		
-		JButton logoutButton = new JButton("로그아웃");
+		JButton logoutButton = new JButton("로그아웃", logout);
 		logoutButton.setBounds(891, 520, 188, 138);
+		logoutButton.setBackground(Color.GRAY);
+		logoutButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add(logoutButton);
 		
 		
@@ -66,10 +83,10 @@ public class MainPage extends JPanel{
 		menuManageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				if (isManager) {
+				if (isManager) {
 				Menu menupage = new Menu(mf);
 				changePanel(menupage);
-//				}
+				}
 			}
 		});
 		
@@ -93,7 +110,6 @@ public class MainPage extends JPanel{
 		});
 		
 		
-		/* ★ 나중에 이거만 복붙 ★ */
 		/* 근퇴관리 페이지 */
 		hrButton.addActionListener(new ActionListener() {
 			@Override
@@ -103,15 +119,15 @@ public class MainPage extends JPanel{
 			}
 		});
 		
-		mf.add(this);
-		
-		/* ★ 나중에 이거만 복붙 ★ */
 		/* 매출관리 페이지 */
 		salesButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (isManager) {
 				DailySalesGuiView dailySalesGuiView = new DailySalesGuiView(mf);
 				changePanel(dailySalesGuiView);
+//			}
+				}
 			}
 		});
 		
@@ -129,22 +145,25 @@ public class MainPage extends JPanel{
 		employeeManageButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				if (isManager) {
+				if (isManager) {
 				EmployeeManagementPage empManagementPage =
 						new EmployeeManagementPage(mf);
 				changePanel(empManagementPage);
-//				}
+				}
 			}
 		});
 		
 		mf.add(this);
 	}
 	
+	
+	
 	public void changePanel(JPanel panel) {
 		mf.remove(this);
 		mf.add(panel);
 		mf.repaint();
 	}
+	
 
 	public List<EmployeeDTO> selectEmployee() {
 		LogInController logInController = new LogInController();

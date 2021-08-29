@@ -52,7 +52,6 @@ public class EmployeeManagementPage extends JPanel {
 	private JTextField empIdTextField;
 	private JTextField empPwTextField;
 	private JTextField empPhoneTextField;
-	
 	private final Color successColor = Color.GREEN;
 	private final Color failedColor = Color.RED;
 	private final Color normalColor = Color.BLACK;
@@ -60,6 +59,7 @@ public class EmployeeManagementPage extends JPanel {
 	private String selectedEmpName = new String();
 	private String selectedEmpId = new String();
 	private String currentProcess = new String("");
+	
 	
 	/**
 	 * Default Ctor
@@ -88,6 +88,7 @@ public class EmployeeManagementPage extends JPanel {
 		this.mf = mainFrame;
 		this.setSize(1280, 720);
 		this.setLayout(null);
+		
 		
 		
 		/* ------------------------------------------------------
@@ -736,7 +737,10 @@ public class EmployeeManagementPage extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MainPage mainPage = new MainPage(mf);
-				changePanel(mainPage);
+				if (true) {
+					mainPage.isManager = true;
+					changePanel(mainPage);
+				}
 			}
 		});
 		

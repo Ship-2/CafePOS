@@ -6,8 +6,8 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		this.setSize(1280, 720);
 		
-//		new LogInPage(this);
-		new MainPage(this);
+		new LogInPage(this);
+//		new MainPage(this);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

@@ -28,8 +28,6 @@ public class LogInPage extends JPanel {
 	private JButton okButton;
 	private List<EmployeeDTO> employeeList;
 
-	public boolean isManager;
-	
 
 	/* 로그인 페이지 패널 */
 	public LogInPage(MainFrame mainFrame) {
