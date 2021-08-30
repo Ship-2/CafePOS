@@ -282,7 +282,10 @@ public class Menu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MainPage mainpage = new MainPage(mf);
-				changePanel(mainpage);
+				if (true) {
+					mainpage.isManager = true;
+					changePanel(mainpage);
+				}
 			}
 		});
 		

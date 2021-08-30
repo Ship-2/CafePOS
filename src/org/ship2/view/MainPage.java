@@ -133,13 +133,12 @@ public class MainPage extends JPanel{
 		
 		
 		/* 직원관리 페이지 */
-//		employeeManageButton.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				MemberPage memberPge = new MemberPage(mf);
-//				changePanel(memberPge);
-//			}
-//		});
+		employeeManageButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		
 		// FROM 송언석 : 잠시 GUI 테스트 동안에 꼽사리좀 끼겠습니다.
 		employeeManageButton.addActionListener(new ActionListener() {
@@ -171,15 +170,5 @@ public class MainPage extends JPanel{
 		List<EmployeeDTO> employeeList = logInController.selectAllEmployee();
 		return employeeList;
 	}
-	
-//	public void checkManager() {
-//		employeeList = selectEmployee();
-//		for (int i = 0; i < employeeList.size(); i++) {
-//			EmployeeDTO employee = employeeList.get(i);
-//			if (employee.getJobCode() > 1) {		
-//				this.setEnabled(false);
-//			}
-//		}
-//	}
 	
 }

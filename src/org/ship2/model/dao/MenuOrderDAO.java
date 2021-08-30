@@ -39,7 +39,7 @@ public class MenuOrderDAO {
 		for(int i = 0; i < menuOrderList.size(); i++) {
 			MenuOrderDTO menuOrder = new MenuOrderDTO();
 			menuOrder = menuOrderList.get(i);
-			System.out.println(menuOrder.getMenuCode());
+//			System.out.println(menuOrder.getMenuCode());
 			
 			try {
 				pstmt = con.prepareStatement(query);

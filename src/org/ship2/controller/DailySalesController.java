@@ -24,9 +24,9 @@ public class DailySalesController {
 		int salesInsertResult = dailySalesService.insertDailySales(dateOfFirstOrder);
 		
 		if(salesInsertResult > 0) {
-			System.out.println("insertDailySales 성공");
+//			System.out.println("insertDailySales 성공");
 		} else {
-			System.out.println("insertDailySales 실패");
+//			System.out.println("insertDailySales 실패");
 		}
 		return salesInsertResult;
 	}
@@ -38,9 +38,9 @@ public class DailySalesController {
 		int salesUpdatetResult = dailySalesService.updateDailySalesByInsert(insertOrderCode, dateOfNthOrder);
 		
 		if(salesUpdatetResult > 0) {
-			System.out.println("updateDailySalesByInsert 성공");
+//			System.out.println("updateDailySalesByInsert 성공");
 		} else {
-			System.out.println("updateDailySalesByInsert 실패");
+//			System.out.println("updateDailySalesByInsert 실패");
 		}
 		return salesUpdatetResult;
 	}
@@ -52,9 +52,9 @@ public class DailySalesController {
 		int refundUpdateResult = dailySalesService.updateDailySalesByDelete(deleteOrderCode, dateOfDelete);
 		
 		if(refundUpdateResult > 0) {
-			System.out.println("updateDailySalesByDelete 성공");
+//			System.out.println("updateDailySalesByDelete 성공");
 		} else {
-			System.out.println("updateDailySalesByDelete 실패");
+//			System.out.println("updateDailySalesByDelete 실패");
 		}
 		return refundUpdateResult;
 	}

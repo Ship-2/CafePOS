@@ -26,12 +26,14 @@ import org.ship2.controller.DailySalesController;
 import org.ship2.controller.MembershipController;
 import org.ship2.controller.MenuController;
 import org.ship2.controller.MenuOrderController;
+import org.ship2.controller.MenuSizeController;
 import org.ship2.controller.PosOrderController;
 import org.ship2.model.dto.DailySalesDTO;
 import org.ship2.model.dto.MembershipDTO;
 import org.ship2.model.dto.MenuCategoriSizeDTO;
 import org.ship2.model.dto.MenuDTO;
 import org.ship2.model.dto.MenuOrderDTO;
+import org.ship2.model.dto.MenuSizeDTO;
 import org.ship2.model.dto.PosOrderDTO;
 
 public class OrderPage extends JPanel{
@@ -66,6 +68,8 @@ public class OrderPage extends JPanel{
 	private DailySalesController dailySalesController = new DailySalesController();
 	private Date today;
 	private JTextField orderCancleTF;
+	
+	private MenuSizeController menuSizeController = new MenuSizeController();
 	
 	public OrderPage() {}
 	
@@ -374,13 +378,24 @@ public class OrderPage extends JPanel{
 		MenuCategoriSizeDTO in = menulist.get(index); 	// 선택한 행의 메뉴를 DTO에 담음
 		boolean flag = true;	// 중복되는 메뉴가 없을 경우 수량,가격 변경이 아닌 추가하기 위한 플래그 
 		int plus = 500;			// 라지 사이즈 선택 시 500원 추가
+		int sizeCode = 0;
 		
 		for (int i = 0 ; i < model1.getRowCount(); i++) {
 			int a = Integer.parseInt(String.valueOf(model1.getValueAt(i, 1))) + 1;	// 기존 수량에서 1을 더한 값을 변수에 저장
 			if(model1.getValueAt(i, 0).equals(in.getMenuName()) && model1.getValueAt(i, 2).equals("large") && size == "large") {	// 동일 메뉴(사이즈)가 행에 존재하면서 라지 버튼을 눌렀을 때
 				flag = false;	// 추가가 아니고 변경이므로 플래그를 false로 변환
 				model1.setValueAt(a, i, 1);		// 기존수량에서 1을 더한 값을 행에 변경 저장
-				model1.setValueAt(a * (in.getUnitPrice() + 500), i, 3);		// 메뉴 가격에 + 500 하여 수량만큼 곱한 값을 행에 변경 저장
+				
+				if(model1.getValueAt(i, 2).equals("regular")) {
+					sizeCode = 1;
+				 } else if(model1.getValueAt(i, 2).equals("large")) {
+					 sizeCode = 2;
+				 } else if(model1.getValueAt(i, 2).equals("oneSize")) {
+					 sizeCode = 3;
+				 }
+				
+				MenuSizeDTO menuSize = menuSizeController.selectBySizeCode(sizeCode);
+				model1.setValueAt(a * (in.getUnitPrice() + menuSize.getSizePrice()), i, 3);		// 메뉴 가격에 + 500 하여 수량만큼 곱한 값을 행에 변경 저장
 				break;	// for문 종료
 			} else if (model1.getValueAt(i, 0).equals(in.getMenuName()) && model1.getValueAt(i, 2).equals("regular") && size == "regular") {	// 동일 메뉴(사이즈)가 행에 존재하면서 레귤러 버튼을 눌렀을 때 
 				flag = false;
@@ -537,6 +552,7 @@ public class OrderPage extends JPanel{
 	
 	/* 미회원 결제 영수증 */
 	public void receipt() {
+		System.out.println("************ 영수증 ************");
 		System.out.println("주문번호 : " + posOrderController.seletMenuCode());
 		
 		for (int i = 0; i < model1.getRowCount(); i++) {
@@ -547,6 +563,7 @@ public class OrderPage extends JPanel{
 	
 	/* 회원 결제 영수증 */
 	public void memReceipt() {
+		System.out.println("************ 영수증 ************");
 		System.out.println("주문번호 : " + posOrderController.seletMenuCode());
 		
 		for (int i = 0; i < model1.getRowCount(); i++) {
@@ -559,6 +576,7 @@ public class OrderPage extends JPanel{
 	
 	/* 포인트 결제 영수증 */
 	public void memPointReceipt() {
+		System.out.println("************ 영수증 ************");
 		System.out.println("주문번호 : " + posOrderController.seletMenuCode());
 		
 		for (int i = 0; i < model1.getRowCount(); i++) {

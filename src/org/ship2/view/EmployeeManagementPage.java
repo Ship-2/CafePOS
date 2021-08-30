@@ -213,7 +213,7 @@ public class EmployeeManagementPage extends JPanel {
 		
 		// 좌측 직원 세부 정보 패널
 		JPanel leftEmpInoPanel = new JPanel();
-		leftEmpInoPanel.setBackground(new Color(230, 230, 250));
+		leftEmpInoPanel.setBackground(Color.LIGHT_GRAY);
 		leftEmpInoPanel.setForeground(Color.WHITE);
 		leftEmpInoPanel.setBounds(51, 89, 538, 480);
 		this.add(leftEmpInoPanel);
@@ -319,35 +319,35 @@ public class EmployeeManagementPage extends JPanel {
 		JButton registerConfirmButton = new JButton("등록 확인");
 		registerConfirmButton.setVisible(false);
 		registerConfirmButton.setFont(new Font("굴림", Font.BOLD, 15));
-		registerConfirmButton.setBackground(new Color(102, 205, 170));
+//		registerConfirmButton.setBackground(new Color(102, 205, 170));
 		registerConfirmButton.setBounds(294, 401, 110, 69);
 		leftEmpInoPanel.add(registerConfirmButton);
 		
 		JButton registerCancelButton = new JButton("등록 취소");
 		registerCancelButton.setVisible(false);
 		registerCancelButton.setFont(new Font("굴림", Font.BOLD, 15));
-		registerCancelButton.setBackground(new Color(102, 205, 170));
+//		registerCancelButton.setBackground(new Color(102, 205, 170));
 		registerCancelButton.setBounds(416, 401, 110, 69);
 		leftEmpInoPanel.add(registerCancelButton);
 		
 		JButton modifyConfirmButton = new JButton("수정 확인");
 		modifyConfirmButton.setVisible(false);
 		modifyConfirmButton.setFont(new Font("굴림", Font.BOLD, 15));
-		modifyConfirmButton.setBackground(new Color(102, 205, 170));
+//		modifyConfirmButton.setBackground(new Color(102, 205, 170));
 		modifyConfirmButton.setBounds(294, 401, 110, 69);
 		leftEmpInoPanel.add(modifyConfirmButton);
 		
 		JButton modifyCancelButton = new JButton("수정 취소");
 		modifyCancelButton.setVisible(false);
 		modifyCancelButton.setFont(new Font("굴림", Font.BOLD, 15));
-		modifyCancelButton.setBackground(new Color(102, 205, 170));
+//		modifyCancelButton.setBackground(new Color(102, 205, 170));
 		modifyCancelButton.setBounds(416, 401, 110, 69);
 		leftEmpInoPanel.add(modifyCancelButton);
 		
 		// 우측 직원 목록 패널
 		JPanel rightEmpListPanel = new JPanel();
 		rightEmpListPanel.setForeground(Color.WHITE);
-		rightEmpListPanel.setBackground(new Color(230, 230, 250));
+		rightEmpListPanel.setBackground(Color.LIGHT_GRAY);
 		rightEmpListPanel.setBounds(669, 89, 538, 480);
 		rightEmpListPanel.setLayout(null);
 		this.add(rightEmpListPanel);
@@ -373,26 +373,26 @@ public class EmployeeManagementPage extends JPanel {
 		rightEmpListPanel.add(tableScrollPane);
 
 		JButton backToMainPageButton = new JButton("메인으로");
-		backToMainPageButton.setBackground(new Color(102, 205, 170));
 		backToMainPageButton.setFont(new Font("굴림", Font.BOLD, 15));
+//		backToMainPageButton.setBackground(new Color(102, 205, 170));
 		backToMainPageButton.setBounds(1097, 10, 110, 69);
 		this.add(backToMainPageButton);
 		
 		JButton registerButton = new JButton("직원 등록");
 		registerButton.setFont(new Font("굴림", Font.BOLD, 15));
-		registerButton.setBackground(new Color(102, 205, 170));
+//		registerButton.setBackground(new Color(102, 205, 170));
 		registerButton.setBounds(51, 579, 110, 69);
 		this.add(registerButton);
 		
 		JButton modifyButton = new JButton("직원 수정");
 		modifyButton.setFont(new Font("굴림", Font.BOLD, 15));
-		modifyButton.setBackground(new Color(102, 205, 170));
+//		modifyButton.setBackground(new Color(102, 205, 170));
 		modifyButton.setBounds(173, 579, 110, 69);
 		this.add(modifyButton);
 		
 		JButton deleteButton = new JButton("직원 삭제");
 		deleteButton.setFont(new Font("굴림", Font.BOLD, 15));
-		deleteButton.setBackground(new Color(102, 205, 170));
+//		deleteButton.setBackground(new Color(102, 205, 170));
 		deleteButton.setBounds(295, 579, 110, 69);
 		this.add(deleteButton);
 		

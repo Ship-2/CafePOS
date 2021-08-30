@@ -9,14 +9,14 @@ import org.ship2.model.dto.MenuSizeDTO;
 
 public class MenuSizeView {
 	
-	private MenuSizeController sampleController = new MenuSizeController();
+	private MenuSizeController menuSizeController = new MenuSizeController();
 
 	public void sampleDisplay() {
 				
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("\n=========== 전체 mesuSise select하기 ===========");
-		List<MenuSizeDTO> menuSizeList = sampleController.selectAllMenuSize();
+		List<MenuSizeDTO> menuSizeList = menuSizeController.selectAllMenuSize();
 		
 		for (MenuSizeDTO menuSize : menuSizeList) {
 			System.out.println(menuSize);
@@ -28,7 +28,7 @@ public class MenuSizeView {
 		System.out.print("sizeCode(1/2/3) 입력 : ");
 		int inputMenuSizeCode = sc.nextInt();
 		
-		MenuSizeDTO menuSize = sampleController.selectBySizeCode(inputMenuSizeCode);
+		MenuSizeDTO menuSize = menuSizeController.selectBySizeCode(inputMenuSizeCode);
 		System.out.println("입력한 SizeCode의 정보 : " + menuSize);
 
 		

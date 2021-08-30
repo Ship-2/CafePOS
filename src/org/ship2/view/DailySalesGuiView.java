@@ -79,7 +79,7 @@ public class DailySalesGuiView extends JPanel {
 		this.add(endDateSpinner);
 		
 		JButton sendbutton = new JButton("정산하기");
-		sendbutton.setBounds(900, 80, 138, 50);
+		sendbutton.setBounds(900, 80, 150, 50);
 		sendbutton.setFont(new Font("나눔고딕", Font.PLAIN, 27));
 		this.add(sendbutton);
 		
